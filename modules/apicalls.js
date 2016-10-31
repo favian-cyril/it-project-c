@@ -21,7 +21,7 @@ function searchIngredients (path, params, cb) {
 function searchResults (ingredients, page, cb) {
   var baseUrl = 'http://api.yummly.com/v1/api'
   var ingrParam = ''
-  ingredients.forEach( function (i) {
+  ingredients.forEach(function (i) {
     ingrParam += '&allowedIngredient[]=' + i
   })
   var params = {
@@ -65,10 +65,12 @@ function get (url, params, cb) {
   request
     .get(options, function (err, res, body) {
       if (!res.statusCode) cb(new Error('offline'))
-      else if (!err && res.statusCode == 200)
-        cb(null, res, JSON.parse(body)) // Correct way to call callback
-      else
-        cb(err)
+      else if (!err && res.statusCode == 200) {
+ cb(null, res, JSON.parse(body))
+} // Correct way to call callback
+      else {
+ cb(err)
+}
     })
 }
 
