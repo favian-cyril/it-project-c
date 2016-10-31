@@ -15,15 +15,15 @@ export default class RecipesContainer extends React.Component {
     this.getResults = this.getResults.bind(this)
   }
 
-  getResults () {
+  getResults() {
     this.setState({ isLoading: true })
-    var that = this
-    var fridgeList = this.context.fridge.map((item) => { return item.name })
-    searchResults(fridgeList, this.state.page, function (err, res, body) {
+    const that = this
+    const fridgeList = this.context.fridge.map(item => item.name)
+    searchResults(fridgeList, this.state.page, (err, res, body) => {
       if (!err && res.statusCode == 200) {
-        var recipes = []
+        const recipes = []
         console.log(body)
-        body['matches'].forEach( function (i) {
+        body.matches.forEach((i) => {
           recipes.push(i)
         })
         that.props.handleUpdateRecipes(recipes)
@@ -32,38 +32,39 @@ export default class RecipesContainer extends React.Component {
     })
   }
 
-  componentWillUpdate (nextContext) {
+  componentWillUpdate(nextContext) {
     if (nextContext.fridge) {
       this.setState({ page: 1, recipes: [] })
       this.getResults()
     }
   }
 
-  componentDidMount () {
+  componentDidMount() {
     if (this.context.fridge) {
       this.setState({ page: 1, recipes: [] })
       this.getResults()
     }
   }
 
-  nextPage () {
-    this.setState({ page: this.state.page + 1})
+  nextPage() {
+    this.setState({ page: this.state.page + 1 })
     this.getResults()
   }
 
   render() {
-    var results
+    let results
 
     if (this.state.isLoading) {
       results = (<Preloader/>)
     } else {
-      results = this.context.recipes.map((item, i) => {
-        return <Recipe recipe={ item }
-                       key={ i }
-                       parent='recipe'
-                       handleUpdateRecipes={this.props.handleUpdateRecipes}/>
+      results = this.context.recipes.map((item, i) =>
+        <Recipe recipe={item}
+          key={i}
+          parent="recipe"
+          handleUpdateRecipes={this.props.handleUpdateRecipes}
+        />
 
-      })
+      )
     }
 
     return (

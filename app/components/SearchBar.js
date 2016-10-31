@@ -10,7 +10,7 @@ export default class SearchBar extends React.Component {
   }
 
   handleChange() {
-    var searchQuery = this.refs.searchInput.value
+    const searchQuery = this.refs.searchInput.value
     this.props.onInput(searchQuery)
   }
 
@@ -35,7 +35,7 @@ export default class SearchBar extends React.Component {
           onFocus={this.handleFocus}
           onBlur={this.handleBlur}
         />
-        <span className="input-group-addon"><i className="fa fa-search"></i></span>
+        <span className="input-group-addon"><i className="fa fa-search"/></span>
       </div>
     )
   }

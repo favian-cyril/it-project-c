@@ -25,25 +25,26 @@ export default class MainContainer extends React.Component {
       recipes: this.state.recipes
     }
   }
-  
+
   componentWillUpdate(nextProps, nextState) {
     if (nextState.fridge) {
-      if (nextState.fridge.length > 0 && nextState.display == 'index')
-        this.setState({display: 'dash'})
-      else if (nextState.fridge.length < 1 && nextState.display == 'dash')
-        this.setState({display: 'index'})
+      if (nextState.fridge.length > 0 && nextState.display == 'index') {
+        this.setState({ display: 'dash' })
+      } else if (nextState.fridge.length < 1 && nextState.display == 'dash') {
+        this.setState({ display: 'index' })
+      }
     }
     if (this.state.fridge != nextState.fridge) {
       console.log('fridge changed')
     }
   }
-  
+
   componentDidMount() {
     this.setState({ fridge: this.getFridge() })
   }
 
   getFridge() {
-    var that = this
+    const that = this
     getFridge((err, res, body) => {
       if (!err) {
         that.setState({ fridge: body })
@@ -52,29 +53,29 @@ export default class MainContainer extends React.Component {
   }
 
   updateFridge(op, item) {
-    var fridge = this.state.fridge
-    var idx = -1
+    const fridge = this.state.fridge
+    let idx = -1
     fridge.forEach((res, i) => { if (res.id == item.id) idx = i })
     if (op == 'add' && idx == -1) {
       fridge.push(item)
     } else if (op == 'del' && idx > -1) {
       fridge.splice(idx, 1)
     }
-    this.setState({ fridge: fridge })
+    this.setState({ fridge })
   }
 
   updateRecipes(recipes) {
-    this.setState({ recipes: recipes })
+    this.setState({ recipes })
   }
 
   updateMissing(recipe, missing) {
-    var recipes = this.state.recipes
+    const recipes = this.state.recipes
     recipes.forEach((item, i) => {
       if (item.name == recipe.name) {
         recipes[i].missing = missing
       }
     })
-    this.setState({ recipes: recipes })
+    this.setState({ recipes })
   }
 
   render() {

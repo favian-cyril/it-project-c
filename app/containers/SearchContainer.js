@@ -21,23 +21,23 @@ export default class SearchContainer extends React.Component {
   handleFocus(focus) {
     this.setState({ isFocused: focus })
   }
-  
+
   componentWillUnmount() {
     window.destroyTooltips()
   }
 
   render() {
     return (
-      <div className='container'>
-        <div className='row'>
-          <Debounce time='400' handler='onInput'>
+      <div className="container">
+        <div className="row">
+          <Debounce time="400" handler="onInput">
             <SearchBar
               onInput={this.handleInput}
               setFocus={this.handleFocus}
             />
           </Debounce>
         </div>
-        <div className='row'>
+        <div className="row">
           <SuggestionsList
             searchText={this.state.text}
             isFocused={this.state.isFocused}

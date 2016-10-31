@@ -1,13 +1,13 @@
-var request = require('request')
-var append = require('append-query')
-var $ = require('jquery')
+const request = require('request')
+const append = require('append-query')
+const $ = require('jquery')
 
 // DEVELOPMENT ONLY
-const baseUrl = typeof document == 'object' ? $("body").data("baseurl") : 'http://localhost:3000/api/'
+const baseUrl = typeof document == 'object' ? $('body').data('baseurl') : 'http://localhost:3000/api/'
 
-function searchIngredients (string, cb) {
-  var url = baseUrl + 'ingredients/autocomplete'
-  var params = {
+function searchIngredients(string, cb) {
+  const url = `${baseUrl}ingredients/autocomplete`
+  const params = {
     metaInformation: true,
     number: 5,
     query: string
@@ -15,39 +15,40 @@ function searchIngredients (string, cb) {
   get(url, params, cb)
 }
 
-function searchResults (ingredients, page, cb) {
-  var url = baseUrl + 'recipes/results'
-  var params = {
+function searchResults(ingredients, page, cb) {
+  const url = `${baseUrl}recipes/results`
+  const params = {
     ingredients: JSON.stringify(ingredients),
-    page: page
+    page
   }
   get(url, params, cb)
 }
 function addIngredient(ingredient, cb) {
-  var url = baseUrl + 'fridge/add'
-  var form = { item: ingredient }
+  const url = `${baseUrl}fridge/add`
+  const form = { item: ingredient }
   post(url, form, cb)
 }
 
 function delIngredient(ingredient, cb) {
-  var url = baseUrl + 'fridge/del'
-  var form = { item: ingredient }
+  const url = `${baseUrl}fridge/del`
+  const form = { item: ingredient }
   post(url, form, cb)
 }
 
 function getFridge(cb) {
-  var url = baseUrl + 'fridge/get'
+  const url = `${baseUrl}fridge/get`
   get(url, null, cb)
 }
 
-function get (url, params, cb) {
-  if (params)
+function get(url, params, cb) {
+  if (params) {
     url = append(url, params)
-  request.get(url, function (err, res, body) {
+  }
+  request.get(url, (err, res, body) => {
     if (!res.statusCode) cb(new Error('offline'))
-    else if (!err && res.statusCode == 200)
+    else if (!err && res.statusCode == 200) {
       cb(null, res, JSON.parse(body))
-    else if (res.statusCode == 500) {
+    } else if (res.statusCode == 500) {
       // DEVELOPMENT ONLY
       body = JSON.parse(res.body)
       err = new Error(body.message)
@@ -56,23 +57,23 @@ function get (url, params, cb) {
       // DEVELOPMENT ONLY
       cb(err)
     }
-  }).on('error', function (err) {
+  }).on('error', (err) => {
     cb(err)
   })
 }
 
-function post (url, obj, cb) {
-  var csrfToken = $("input[name='_csrf']").val()
-  var options = {
+function post(url, obj, cb) {
+  const csrfToken = $("input[name='_csrf']").val()
+  const options = {
     headers: { 'X-CSRF-Token': csrfToken },
-    url: url,
+    url,
     form: obj
   }
-  request.post(options, function (err, res, body) {
+  request.post(options, (err, res, body) => {
     if (!res.statusCode) cb(new Error('offline'))
-    else if (!err && res.statusCode == 200)
+    else if (!err && res.statusCode == 200) {
       cb(null, res)
-    else if (res.statusCode == 500) {
+    } else if (res.statusCode == 500) {
       // DEVELOPMENT ONLY
       body = JSON.parse(res.body)
       err = new Error(body.message)
@@ -81,15 +82,15 @@ function post (url, obj, cb) {
       // DEVELOPMENT ONLY
       cb(err)
     }
-  }).on('error', function (err) {
+  }).on('error', (err) => {
     cb(err)
   })
 }
 
 module.exports = {
-  searchIngredients: searchIngredients,
-  searchResults: searchResults,
-  addIngredient: addIngredient,
-  delIngredient: delIngredient,
-  getFridge: getFridge
+  searchIngredients,
+  searchResults,
+  addIngredient,
+  delIngredient,
+  getFridge
 }

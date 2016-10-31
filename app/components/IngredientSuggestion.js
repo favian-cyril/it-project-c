@@ -22,37 +22,40 @@ export default class IngredientSuggestion extends React.Component {
   componentDidMount() {
     this.setState({ added: this.isInFridge() })
   }
-  
+
   handleClick(e) {
-    var ingredient = this.props.item
-    var that = this
-    var elemId = '#' + that.props.listkey
+    const ingredient = this.props.item
+    const that = this
+    const elemId = `#${that.props.listkey}`
     if (this.state.added) {
-      this.delFromFridge(ingredient, function () {
-        if ((that.context.fridge.length > 0 && that.context.display == "dash") ||
-        that.context.display == "index")
+      this.delFromFridge(ingredient, () => {
+        if ((that.context.fridge.length > 0 && that.context.display == 'dash') ||
+        that.context.display == 'index') {
           that.showTooltip(elemId)
+        }
       })
     } else {
       this.addToFridge(ingredient, () => {
-        if ((that.context.fridge.length < 1 && that.context.display == "index") ||
-          that.context.display == "dash")
+        if ((that.context.fridge.length < 1 && that.context.display == 'index') ||
+          that.context.display == 'dash') {
           that.showTooltip(elemId)
+        }
       })
     }
   }
 
   addToFridge(ingredient, cb) {
-    var that = this
-    addIngredient(ingredient, function (err, res, body) {
+    const that = this
+    addIngredient(ingredient, (err, res, body) => {
       if (!err && res.statusCode == 200) {
         that.props.handleUpdate('add', ingredient)
-        var unmounting = (that.context.fridge.length > 0 && that.context.display == "index")
-        if (!unmounting) that.setState({
-          status: 'success',
-          message: `Added ${ingredient.name} to fridge!`,
-          added: true
-        })
+        const unmounting = (that.context.fridge.length > 0 && that.context.display == 'index')
+        if (!unmounting) {
+          that.setState({
+            status: 'success',
+            message: `Added ${ingredient.name} to fridge!`,
+            added: true
+          }) }
       } else {
         that.setState({
           status: 'failure',
@@ -64,18 +67,18 @@ export default class IngredientSuggestion extends React.Component {
   }
 
   delFromFridge(ingredient, cb) {
-    var that = this
-    delIngredient(ingredient, function (err, res, body) {
+    const that = this
+    delIngredient(ingredient, (err, res, body) => {
       if (!err && res.statusCode == 200) {
         that.props.handleUpdate('del', ingredient)
-        var unmounting = (that.context.fridge.length < 1 && that.context.display == "dash")
-        var ingUnmount = (that.props.parent == 'fridge')
-          if (!unmounting && !ingUnmount)
-            that.setState({
-              status: 'success',
-              message: `Deleted ${ingredient.name} from fridge!`,
-              added: false
-            })
+        const unmounting = (that.context.fridge.length < 1 && that.context.display == 'dash')
+        const ingUnmount = (that.props.parent == 'fridge')
+        if (!unmounting && !ingUnmount) {
+          that.setState({
+            status: 'success',
+            message: `Deleted ${ingredient.name} from fridge!`,
+            added: false
+          }) }
       } else {
         that.setState({
           status: 'failure',
@@ -87,9 +90,9 @@ export default class IngredientSuggestion extends React.Component {
   }
 
   isInFridge() {
-    var fridge = this.context.fridge
-    var itemIdStr = this.props.item.id
-    var results = fridge.filter((item) => { return itemIdStr == item.id })
+    const fridge = this.context.fridge
+    const itemIdStr = this.props.item.id
+    const results = fridge.filter(item => itemIdStr == item.id)
     return results.length > 0
   }
 
@@ -99,28 +102,30 @@ export default class IngredientSuggestion extends React.Component {
   }
 
   render() {
-    var imgBaseURL = 'https://spoonacular.com/cdn/ingredients_100x100/'
-    var imageURL = imgBaseURL + this.props.item.image
-    var name = this.props.item.name
-    var buttonClass = ''
-    var dataPlacement = (this.context.display == 'index') ? 'right' : 'left'
-    if (this.state.added)
+    const imgBaseURL = 'https://spoonacular.com/cdn/ingredients_100x100/'
+    const imageURL = imgBaseURL + this.props.item.image
+    const name = this.props.item.name
+    let buttonClass = ''
+    const dataPlacement = (this.context.display == 'index') ? 'right' : 'left'
+    if (this.state.added) {
       buttonClass += ' success'
+    }
     return (
-      <li className='media ingredient' onMouseDown={(e) => { e.preventDefault() }}>
-        <div className='media-left media-middle'>
-          <img className='img-rounded' src={ imageURL } alt='40x40' width='40' height='40'/>
+      <li className="media ingredient" onMouseDown={(e) => { e.preventDefault() }}>
+        <div className="media-left media-middle">
+          <img className="img-rounded" src={imageURL} alt="40x40" width="40" height="40"/>
         </div>
-        <div className='media-body'>
-          <p className='media-heading'>{ name }</p>
+        <div className="media-body">
+          <p className="media-heading">{ name }</p>
         </div>
-        <div className='media-right media-bottom'>
+        <div className="media-right media-bottom">
           <button id={this.props.listkey} onMouseUp={_.debounce(this.handleClick, 1000, { leading: true })}
-                  className={'btn btn-default btn-add ' + buttonClass}
-                  title={this.state.message} data-toggle='tooltip'
-                  data-container='body' data-placement={dataPlacement}
-                  data-trigger='manual'>
-            <i className="fa fa-2x fa-plus btn-add-icon"></i>
+            className={`btn btn-default btn-add ${buttonClass}`}
+            title={this.state.message} data-toggle="tooltip"
+            data-container="body" data-placement={dataPlacement}
+            data-trigger="manual"
+          >
+            <i className="fa fa-2x fa-plus btn-add-icon"/>
           </button>
         </div>
       </li>

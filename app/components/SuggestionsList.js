@@ -23,7 +23,7 @@ export default class SuggestionsList extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props.searchText !== nextProps.searchText) {
-      var searchText = nextProps.searchText.trim()
+      const searchText = nextProps.searchText.trim()
       this.handleSearch(searchText)
     }
   }
@@ -41,7 +41,7 @@ export default class SuggestionsList extends React.Component {
   }
 
   createTimestamp() {
-    let ts = (new Date).getTime()
+    const ts = (new Date()).getTime()
     this.setState({ timestamp: ts })
     return ts
   }
@@ -51,31 +51,35 @@ export default class SuggestionsList extends React.Component {
     searchIngredients(searchText, (err, res, body) => {
       if (err) {
         // TypeError: Failed to fetch
-        if (err.name == 'TypeError')
+        if (err.name == 'TypeError') {
           this.setState({ errtype: 'offline' })
+        }
         // ServerError: Nasty stuff happening in the server
-        else if (err.name == 'ServerError')
+        else if (err.name == 'ServerError') {
           this.setState({ errtype: 'servererr' })
+        }
         // Other unhandled error
-        else
+        else {
           throw err
+        }
       } else {
         // Check timestamp, accept result if request is not stale
         if (lastTimestamp === this.state.timestamp)
           // Check if request returned any results
+          {
           if (body.length != 0) {
-            var results = []
-            var resId = []
+            const results = []
+            const resId = []
             body.forEach((item, i) => {
               if (resId.indexOf(item.id) === -1) {
                 results.push(item)
                 resId.push(item.id)
               }
             })
-            this.setState({ results: results })
-          }
-          else
-            this.setState({ errtype: 'notfound'})
+            this.setState({ results })
+          } else {
+            this.setState({ errtype: 'notfound' })
+          } }
       }
       // Clear loading anims
       this.setState({ loading: false })
@@ -84,45 +88,48 @@ export default class SuggestionsList extends React.Component {
 
   loadResultsList() {
     return (
-      <ul className='media-list dropdown-menu'>
+      <ul className="media-list dropdown-menu">
         {
-          this.state.results.map((item, i) => {
-            return <IngredientSuggestion 
-              item={item} 
-              key={i} 
+          this.state.results.map((item, i) =>
+            <IngredientSuggestion
+              item={item}
+              key={i}
               listkey={i}
               fridge={this.props.fridge}
               handleUpdate={this.props.handleUpdate}
             />
-          })
+          )
         }
       </ul>
     )
   }
 
   processResults() {
-    if (this.state.loading)
+    if (this.state.loading) {
       return <div className="preloader dropdown-menu"><Preloader/></div>
-    else {
+    } else {
       switch (this.state.errtype) {
         case 'notfound':
-          return <ErrorMsg msg='No results' desc='Your search did not return any results.'/>
+          return <ErrorMsg msg="No results" desc="Your search did not return any results."/>
         case 'offline':
-          return <ErrorMsg msg='No connection' desc='Check your internet connection.'/>
+          return <ErrorMsg msg="No connection" desc="Check your internet connection."/>
         default:
-          if (this.state.errtype === null && this.state.results.length)
+          if (this.state.errtype === null && this.state.results.length) {
             return this.loadResultsList()
+          }
       }
     }
   }
 
   render() {
-    var status, results
-    if (this.props.isFocused && this.props.searchText.length > 1)
+    let status,
+      results
+    if (this.props.isFocused && this.props.searchText.length > 1) {
       status = 'open'
+    }
     results = this.processResults()
     return (
-      <div className={'dropdown clearfix ' + status}>
+      <div className={`dropdown clearfix ${status}`}>
         {results}
       </div>
     )
