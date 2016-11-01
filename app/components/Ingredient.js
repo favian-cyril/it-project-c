@@ -1,5 +1,4 @@
 import React from 'react'
-import _ from 'lodash'
 
 const Ingredient = (props) => {
   const imgBaseURL = 'https://spoonacular.com/cdn/ingredients_100x100/'
@@ -21,7 +20,7 @@ const Ingredient = (props) => {
       <div className="media-right media-bottom">
         <button
           id={props.listkey}
-          onMouseUp={_.debounce(this.handleClick, 1000, { leading: true })}
+          onMouseUp={this.handleClick}
           className={`btn btn-default btn-add ${buttonClass}`}
           title={props.message}
           data-toggle="tooltip"
