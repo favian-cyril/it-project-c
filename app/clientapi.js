@@ -3,7 +3,7 @@ const append = require('append-query')
 const $ = require('jquery')
 
 // DEVELOPMENT ONLY
-const baseUrl = typeof document == 'object' ? $('body').data('baseurl') : 'http://localhost:3000/api/'
+const baseUrl = typeof document === 'object' ? $('body').data('baseurl') : 'http://localhost:3000/api/'
 
 function searchIngredients(string, cb) {
   const url = `${baseUrl}ingredients/autocomplete`
@@ -46,9 +46,9 @@ function get(url, params, cb) {
   }
   request.get(url, (err, res, body) => {
     if (!res.statusCode) cb(new Error('offline'))
-    else if (!err && res.statusCode == 200) {
+    else if (!err && res.statusCode === 200) {
       cb(null, res, JSON.parse(body))
-    } else if (res.statusCode == 500) {
+    } else if (res.statusCode === 500) {
       // DEVELOPMENT ONLY
       body = JSON.parse(res.body)
       err = new Error(body.message)
@@ -71,9 +71,9 @@ function post(url, obj, cb) {
   }
   request.post(options, (err, res, body) => {
     if (!res.statusCode) cb(new Error('offline'))
-    else if (!err && res.statusCode == 200) {
+    else if (!err && res.statusCode === 200) {
       cb(null, res)
-    } else if (res.statusCode == 500) {
+    } else if (res.statusCode === 500) {
       // DEVELOPMENT ONLY
       body = JSON.parse(res.body)
       err = new Error(body.message)

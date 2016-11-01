@@ -1,12 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Route, Router, browserHistory } from 'react-router'
-import MainContainer from './containers/MainContainer'
+import routes from './config/routes'
 
-const routes = (
-  <Router history={browserHistory}>
-    <Route path="/" component={MainContainer}/>
-  </Router>
-)
 
 ReactDOM.render(routes, document.getElementById('app'))
