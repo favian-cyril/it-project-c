@@ -13,6 +13,9 @@
     "rules": {
         "semi": 0,
         "comma-dangle": 0,
-        "react/jsx-space-before-closing": [1, "never"]
-    }
+        "react/jsx-space-before-closing": [1, "never"],
+        "no-param-reassign": 0,
+        "no-use-before-define": 0
+    },
+    "root": true
 }
