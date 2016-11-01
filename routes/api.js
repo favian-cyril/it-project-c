@@ -18,7 +18,6 @@ router.get('/ingredients/autocomplete', function (req, res, next) {
 })
 
 router.get('/recipes/results', function (req, res, next) {
-  var path = req.path
   var params = req.query
   var ingredients = JSON.parse(params.ingredients)
   var page = parseInt(params.page)

@@ -62,16 +62,15 @@ function get (url, params, cb) {
     url: append(url, params),
     headers: { 'X-Mashape-Key': SPOONACULAR_API_KEY }
   }
-  request
-    .get(options, function (err, res, body) {
-      if (!res.statusCode) cb(new Error('offline'))
-      else if (!err && res.statusCode == 200) {
- cb(null, res, JSON.parse(body))
-} // Correct way to call callback
-      else {
- cb(err)
-}
-    })
+  request.get(options, function (err, res, body) {
+    if (!res.statusCode) {
+      cb(new Error('offline'))
+    } else if (!err && res.statusCode === 200) {
+      cb(null, res, JSON.parse(body))
+    } else {
+      cb(err)
+    }
+  })
 }
 
 module.exports = {
