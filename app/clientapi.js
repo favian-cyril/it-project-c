@@ -1,4 +1,4 @@
-const request = require('request')
+const axios = require('axios')
 const append = require('append-query')
 const $ = require('jquery')
 
@@ -23,6 +23,7 @@ function searchResults(ingredients, page, cb) {
   }
   get(url, params, cb)
 }
+
 function addIngredient(ingredient, cb) {
   const url = `${baseUrl}fridge/add`
   const form = { item: ingredient }
@@ -44,47 +45,43 @@ function get(url, params, cb) {
   if (params) {
     url = append(url, params)
   }
-  request.get(url, (err, res, body) => {
-    if (!res.statusCode) cb(new Error('offline'))
-    else if (!err && res.statusCode === 200) {
-      cb(null, res, JSON.parse(body))
-    } else if (res.statusCode === 500) {
-      // DEVELOPMENT ONLY
-      body = JSON.parse(res.body)
-      err = new Error(body.message)
-      err.stack = body.stack
-      console.error(err)
-      // DEVELOPMENT ONLY
-      cb(err)
-    }
-  }).on('error', (err) => {
-    cb(err)
-  })
+  axios.get(url)
+    .then((res) => {
+      if (res.status === 200) {
+        cb(null, res.data)
+      } else if (res.status === 500) {
+        // DEVELOPMENT ONLY
+        const body = JSON.parse(res.data)
+        const err = new Error(body.message)
+        err.stack = body.stack
+        console.error(err)
+        // DEVELOPMENT ONLY
+        cb(err)
+      }
+    })
+    .catch(err => cb(err))
 }
 
 function post(url, obj, cb) {
   const csrfToken = $("input[name='_csrf']").val()
   const options = {
-    headers: { 'X-CSRF-Token': csrfToken },
-    url,
-    form: obj
+    headers: { 'X-CSRF-Token': csrfToken }
   }
-  request.post(options, (err, res, body) => {
-    if (!res.statusCode) cb(new Error('offline'))
-    else if (!err && res.statusCode === 200) {
-      cb(null, res)
-    } else if (res.statusCode === 500) {
-      // DEVELOPMENT ONLY
-      body = JSON.parse(res.body)
-      err = new Error(body.message)
-      err.stack = body.stack
-      console.error(err)
-      // DEVELOPMENT ONLY
-      cb(err)
-    }
-  }).on('error', (err) => {
-    cb(err)
-  })
+  axios.post(url, obj, options)
+    .then((res) => {
+      if (res.status === 200) {
+        cb(null)
+      } else if (res.status === 500) {
+        // DEVELOPMENT ONLY
+        const body = JSON.parse(res.data)
+        const err = new Error(body.message)
+        err.stack = body.stack
+        console.error(err)
+        // DEVELOPMENT ONLY
+        cb(err)
+      }
+    })
+    .catch(err => cb(err))
 }
 
 module.exports = {

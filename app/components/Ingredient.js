@@ -2,11 +2,11 @@ import React from 'react'
 
 const Ingredient = (props) => {
   const imgBaseURL = 'https://spoonacular.com/cdn/ingredients_100x100/'
-  const imageURL = imgBaseURL + props.item.image
-  const name = props.item.name
+  const imageURL = imgBaseURL + props.ingredient.image
+  const name = props.ingredient.name
   const dataPlacement = (props.display === 'index') ? 'right' : 'left'
   let buttonClass = ''
-  if (props.added) {
+  if (props.ingredient.isAdded) {
     buttonClass = `${buttonClass} success`
   }
   return (
@@ -19,8 +19,8 @@ const Ingredient = (props) => {
       </div>
       <div className="media-right media-bottom">
         <button
-          id={props.listkey}
-          onMouseUp={this.handleClick}
+          id={props.idName}
+          onMouseUp={props.handleToggle}
           className={`btn btn-default btn-add ${buttonClass}`}
           title={props.message}
           data-toggle="tooltip"
@@ -36,14 +36,14 @@ const Ingredient = (props) => {
 }
 
 Ingredient.propTypes = {
-  added: React.PropTypes.bool.isRequired,
-  item: React.PropTypes.shape({
+  ingredient: React.PropTypes.shape({
     name: React.PropTypes.string.isRequired,
     image: React.PropTypes.string.isRequired
   }).isRequired,
-  display: React.PropTypes.oneOf(['index', 'dash']).isRequired,
-  listkey: React.PropTypes.string,
-  message: React.PropTypes.string
+  idName: React.PropTypes.string,
+  message: React.PropTypes.string,
+  handleToggle: React.PropTypes.func.isRequired,
+  display: React.PropTypes.oneOf(['index', 'dash'])
 }
 
 export default Ingredient

@@ -1,14 +1,14 @@
 import React from 'react'
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 import MainContainer from '../containers/MainContainer'
-import IndexContainer from '../containers/IndexContainer'
-import DashboardContainer from '../containers/DashboardContainer'
+import Index from '../components/Index'
+import Dashboard from '../components/Dashboard'
 
 const routes = (
   <Router history={browserHistory}>
     <Route path="/" component={MainContainer}>
-      <IndexRoute component={IndexContainer}/>
-      <Route path="dashboard" component={DashboardContainer}/>
+      <IndexRoute component={Index}/>
+      <Route path="/dash" component={Dashboard}/>
     </Route>
   </Router>
 )

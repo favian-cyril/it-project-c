@@ -7,9 +7,9 @@ const SearchBar = props => (
       type="text"
       id="search-input"
       placeholder="Search for ingredients..."
-      onChange={props.handleChange}
-      onFocus={props.handleFocus}
-      onBlur={props.handleBlur}
+      onChange={props.handleInput}
+      onFocus={props.handleToggleFocus}
+      onBlur={props.handleToggleFocus}
     />
     <span className="input-group-addon">
       <i className="fa fa-search"/>
@@ -19,9 +19,8 @@ const SearchBar = props => (
 
 
 SearchBar.propTypes = {
-  handleChange: React.PropTypes.func.isRequired,
-  handleFocus: React.PropTypes.func.isRequired,
-  handleBlur: React.PropTypes.func.isRequired
+  handleInput: React.PropTypes.func.isRequired,
+  handleToggleFocus: React.PropTypes.func.isRequired
 }
 
 export default SearchBar

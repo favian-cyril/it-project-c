@@ -1,5 +1,5 @@
 import React from 'react'
-import Ingredient from '../components/Ingredient'
+import IngredientContainer from '../containers/IngredientContainer'
 import Preloader from '../components/Preloader'
 import Error from '../components/Error'
 
@@ -7,36 +7,26 @@ const SuggestionList = (props) => {
   let results
   const status = (props.isFocused && props.searchText.length > 1) ? 'open' : ''
   if (props.isLoading) {
+    results = <div className="preloader dropdown-menu"><Preloader/></div>
+  } else if (props.errorType === 'NOTFOUND') {
+    results = <Error msg="No results" desc="Your search did not return any results."/>
+  } else if (props.errorType === 'OFFLINE') {
+    results = <Error msg="No connection" desc="Check your internet connection."/>
+  } else if (props.errorType === "" && props.suggestionResults.length) {
     results = (
-      <div className="preloader dropdown-menu">
-        <Preloader/>
-      </div>
-    )
-  } else {
-    switch (props.errorType) {
-      case 'NOTFOUND':
-        return <Error msg="No results" desc="Your search did not return any results."/>
-      case 'OFFLINE':
-        return <Error msg="No connection" desc="Check your internet connection."/>
-      default:
-        if (props.errorType === null && props.suggestionResults.length) {
-          return (
-            <ul className="media-list dropdown-menu">
-              {
-                props.suggestionResults.map((item, i) => (
-                  <Ingredient
-                    item={item}
-                    key={i}
-                    listkey={i}
-                    fridge={props.fridge}
-                    handleUpdate={props.handleUpdate}
-                  />
-                ))
-              }
-            </ul>
-          )
+      <ul className="media-list dropdown-menu">
+        {
+          props.suggestionResults.map((item, i) => (
+            <IngredientContainer
+              key={i}
+              ingredient={item}
+              idName={`ingr_${i}`}
+              updateFridge={props.updateFridge}
+            />
+          ))
         }
-    }
+      </ul>
+    )
   }
   return (
     <div className={`dropdown clearfix ${status}`}>
@@ -49,11 +39,11 @@ SuggestionList.propTypes = {
   searchText: React.PropTypes.string.isRequired,
   isFocused: React.PropTypes.bool.isRequired,
   isLoading: React.PropTypes.bool.isRequired,
-  errorType: React.PropTypes.string.isRequired,
+  errorType: React.PropTypes.string,
   suggestionResults: React.PropTypes.arrayOf(
     React.PropTypes.object
   ).isRequired,
-  handleUpdate: React.PropTypes.func.isRequired
+  updateFridge: React.PropTypes.func.isRequired
 }
 
 export default SuggestionList
