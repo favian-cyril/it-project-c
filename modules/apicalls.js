@@ -15,7 +15,8 @@ var YUMMLY_API_KEY = process.env.YUMMLY_API_KEY
  */
 function searchIngredients (path, params, cb) {
   var url = 'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/food' + path
-  get(url, params, cb)
+  const headers = { 'X-Mashape-Key': SPOONACULAR_API_KEY }
+  _get(url, params, headers, cb)
 }
 
 function searchResults (ingredients, page, cb) {
@@ -41,8 +42,7 @@ function searchResults (ingredients, page, cb) {
       args.forEach(function (res, i) {
         response.data.matches[i].sourceUrl = res.data.source.sourceRecipeUrl
       })
-      response.statusCode = 200
-      cb(null, response, response.data)
+      cb(null, response.data)
     }).catch(function (error) {
       console.error('Failed to gather recipe sourceUrls.')
       cb(new Error(error.message))
@@ -57,20 +57,19 @@ function searchResults (ingredients, page, cb) {
  * Wrapper GET function using 'request' library
  * Callback receives (err, res, body)
  */
-function get (url, params, cb) {
-  var options = {
-    url: append(url, params),
-    headers: { 'X-Mashape-Key': SPOONACULAR_API_KEY }
-  }
-  request.get(options, function (err, res, body) {
-    if (!res.statusCode) {
-      cb(new Error('offline'))
-    } else if (!err && res.statusCode === 200) {
-      cb(null, res, JSON.parse(body))
-    } else {
+function _get (url, params, headers, cb) {
+  const fetchUrl = append(url, params)
+  axios.get(fetchUrl, { headers: headers })
+    .then(function (res) {
+      if (res.status === 200) {
+        cb(null, res.data)
+      } else {
+        cb(new Error(res.status))
+      }
+    })
+    .catch(function (err) {
       cb(err)
-    }
-  })
+    })
 }
 
 module.exports = {

@@ -16,4 +16,11 @@ router.get('/', function (req, res, next) {
   res.render('index', { title: 'BitFridge', _csrfToken: req.csrfToken(), baseurl: baseurl })
 })
 
+router.get('/dash', function (req, res, next) {
+  if (!req.session.id) {
+    res.redirect('/')
+  }
+  res.render('index', { title: 'BitFridge', _csrfToken: req.csrfToken(), baseurl: baseurl })
+})
+
 module.exports = router
