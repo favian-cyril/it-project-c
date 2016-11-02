@@ -1,6 +1,5 @@
-var request = require('request')
-var append = require('append-query')
 var axios = require('axios')
+var append = require('append-query')
 
 require('dotenv').config()
 
@@ -45,11 +44,11 @@ function searchResults (ingredients, page, cb) {
       cb(null, response.data)
     }).catch(function (error) {
       console.error('Failed to gather recipe sourceUrls.')
-      cb(new Error(error.message))
+      cb(error)
     })
   }).catch(function (error) {
     console.error('Failed to return search results.')
-    cb(new Error(error.message))
+    cb(error)
   })
 }
 
@@ -61,11 +60,7 @@ function _get (url, params, headers, cb) {
   const fetchUrl = append(url, params)
   axios.get(fetchUrl, { headers: headers })
     .then(function (res) {
-      if (res.status === 200) {
-        cb(null, res.data)
-      } else {
-        cb(new Error(res.status))
-      }
+      cb(null, res.data)
     })
     .catch(function (err) {
       cb(err)
