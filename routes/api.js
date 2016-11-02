@@ -10,8 +10,8 @@ router.get('/ingredients/autocomplete', function (req, res, next) {
   var path = req.path
   var params = req.query
   searchIngredients(path, params, function (err, body) {
-    if (!err) { 
-      res.json(body) 
+    if (!err) {
+      res.json(body)
     } else {
       res.status(500).json(err)
       console.error(err)
