@@ -20,7 +20,7 @@ class SearchContainer extends React.Component {
     this.handleSearch = this.handleSearch.bind(this)
     this.fetchResults = this.fetchResults.bind(this)
   }
-  
+
   componentWillUpdate(nextProps, nextState) {
     if (this.state.searchText !== nextState.searchText) {
       const searchText = nextState.searchText.trim()
@@ -29,7 +29,7 @@ class SearchContainer extends React.Component {
   }
 
   handleInput() {
-    var inputText = document.getElementById('search-input').value
+    const inputText = document.getElementById('search-input').value
     this.setState({ searchText: inputText })
   }
 
@@ -67,9 +67,9 @@ class SearchContainer extends React.Component {
         } else {
           this.setState({ errorType: 'NOTFOUND' })
         }
-      } else if (err.name === 'Network Error') {
+      } else if (err.message === 'Network Error') {
         this.setState({ errorType: 'OFFLINE' })
-      } else if (err.name === 'ServerError') {
+      } else if (err.response.data.code === 'ENOTFOUND') {
         this.setState({ errorType: 'SERVERERR' })
       } else if (err) {
         throw err

@@ -47,19 +47,11 @@ function get(url, params, cb) {
   }
   axios.get(url)
     .then((res) => {
-      if (res.status === 200) {
-        cb(null, res.data)
-      } else if (res.status === 500) {
-        // DEVELOPMENT ONLY
-        const body = JSON.parse(res.data)
-        const err = new Error(body.message)
-        err.stack = body.stack
-        console.error(err)
-        // DEVELOPMENT ONLY
-        cb(err)
-      }
+      cb(null, res.data)
     })
-    .catch(err => cb(err))
+    .catch((err) => {
+      cb(err)
+    })
 }
 
 function post(url, obj, cb) {
@@ -68,20 +60,12 @@ function post(url, obj, cb) {
     headers: { 'X-CSRF-Token': csrfToken }
   }
   axios.post(url, obj, options)
-    .then((res) => {
-      if (res.status === 200) {
-        cb(null)
-      } else if (res.status === 500) {
-        // DEVELOPMENT ONLY
-        const body = JSON.parse(res.data)
-        const err = new Error(body.message)
-        err.stack = body.stack
-        console.error(err)
-        // DEVELOPMENT ONLY
-        cb(err)
-      }
+    .then(() => {
+      cb(null)
     })
-    .catch(err => cb(err))
+    .catch((err) => {
+      cb(err)
+    })
 }
 
 module.exports = {
