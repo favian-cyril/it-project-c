@@ -51,7 +51,7 @@ div.card-block.recipe-card {
 }
 
 .recipe-list-wrapper {
-  height: 75vh;
+  height: 70vh;
   overflow-y: auto;
 }
 
@@ -65,9 +65,8 @@ small.missing-str {
 }
 
 button.view-more {
-  position: relative;
   width: 100%;
-  bottom: 0;
+  border-top: 1px solid #ccc;
 }
 
 /* INGREDIENT SUGGESTION */
