@@ -1,5 +1,6 @@
 var express = require('express')
 var uuid = require('uuid')
+var constants = require('../app/config/constants')
 var router = express.Router()
 
 const baseurl = process.env.NODE_ENV === 'production'
@@ -15,7 +16,7 @@ router.get('/', function (req, res, next) {
 })
 
 router.get('/dash', function (req, res, next) {
-  if (!req.session.fridge || req.session.fridge.length === 0) {
+  if (!req.session.fridge || req.session.fridge.length < constants.REDIRECT_INGR_THRESHOLD) {
     res.redirect('/')
   } else {
     res.render('index', { title: 'BitFridge', _csrfToken: req.csrfToken(), baseurl: baseurl })

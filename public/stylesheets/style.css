@@ -55,9 +55,19 @@ div.card-block.recipe-card {
   overflow-y: auto;
 }
 
+.recipe-list-wrapper > ul {
+  height: 100%;
+}
+
 /* RECIPE SUGGESTION */
 small.missing-str {
   line-height: 1 !important;
+}
+
+button.view-more {
+  position: relative;
+  width: 100%;
+  bottom: 0;
 }
 
 /* INGREDIENT SUGGESTION */
@@ -139,6 +149,13 @@ div.search-error p {
 div.preloader {
   width: 100%;
   padding: 20px 0;
+}
+
+div.spinner-wrapper {
+  position: relative;
+  display: inline-block;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 /* ICON IN INPUT */

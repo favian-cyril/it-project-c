@@ -1,3 +1,3 @@
-const REDIRECT_INGR_THRESHOLD = 1
-
-export { REDIRECT_INGR_THRESHOLD }
+module.exports = {
+  REDIRECT_INGR_THRESHOLD: 2
+}
