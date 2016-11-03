@@ -2,7 +2,7 @@ import { mount, shallow } from 'enzyme'
 import { assert } from 'chai'
 import React from 'react'
 import Fridge from '../app/components/Fridge'
-import IngredientSuggestion from '../app/components/IngredientSuggestion'
+import IngredientSuggestion from '../app/components/Ingredient'
 
 import jsdom from 'jsdom'
 const doc = jsdom.jsdom('<!doctype html><html><body></body></html>')
