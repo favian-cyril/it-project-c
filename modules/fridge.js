@@ -22,7 +22,7 @@ function addIngredient (req, cb) {
       })
       cb(null)
     } else {
-      cb(new Error('Duplicate item added.'))
+      cb(null)  // no op
     }
   } else {
     cb(new Error('Session key lookup failed.'))
@@ -43,7 +43,7 @@ function delIngredient (req, cb) {
       models.guest.update({fridge: JSON.stringify(req.session.fridge)}, {where: {id: req.session.id}})
       cb(null)
     } else {
-      cb(new Error('Item not found.'))
+      cb(null)  // no op
     }
   } else {
     cb(new Error('Session key lookup failed.'))
