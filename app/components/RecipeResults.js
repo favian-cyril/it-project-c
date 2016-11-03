@@ -21,23 +21,25 @@ const RecipeResults = (props, context) => {
         <ul className="media-list">
           {results}
           {preloader}
-          <li className="media view-more">
-            <div className="media-body media-middle">
-              <button
-                type="button"
-                className="btn btn-link"
-              >
-                View more...
-              </button>
-            </div>
-          </li>
         </ul>
+      </div>
+      <div className="media view-more">
+        <div className="media-body media-middle">
+          <button
+            type="button"
+            className="btn btn-link view-more"
+            onClick={props.viewMore}
+          >
+            View more...
+          </button>
+        </div>
       </div>
     </div>
   )
 }
 
 RecipeResults.propTypes = {
+  viewMore: React.PropTypes.func.isRequired,
   isLoading: React.PropTypes.bool.isRequired
 }
 

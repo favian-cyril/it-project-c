@@ -95,6 +95,7 @@ class SearchContainer extends React.Component {
             errorType={this.state.errorType}
             suggestionResults={this.state.suggestionResults}
             updateFridge={this.props.updateFridge}
+            isInFridge={this.props.isInFridge}
           />
         </div>
       </div>

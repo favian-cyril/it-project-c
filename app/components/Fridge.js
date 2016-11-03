@@ -1,5 +1,5 @@
 import React from 'react'
-import Ingredient from './Ingredient'
+import IngredientContainer from '../containers/IngredientContainer'
 
 const Fridge = props => (
   <div className="container fridge">
@@ -11,13 +11,16 @@ const Fridge = props => (
         <ul className="media-list">
           {
             props.contents.map((item, i) => (
-              <Ingredient
-                item={item} key={i}
-                parent="fridge"
-                fridge={props.fridge}
-                handleUpdate={props.handleUpdate}
-              />
-            ))
+                <IngredientContainer
+                  key={i}
+                  idName={`ingr_${i}`}
+                  parent="fridge"
+                  ingredient={item}
+                  isInFridge={props.isInFridge}
+                  updateFridge={props.updateFridge}
+                />
+              )
+            )
           }
         </ul>
       </div>
@@ -30,7 +33,8 @@ Fridge.propTypes = {
   contents: React.PropTypes.arrayOf(
     React.PropTypes.object
   ).isRequired,
-  handleUpdate: React.PropTypes.func.isRequired
+  updateFridge: React.PropTypes.func.isRequired,
+  isInFridge: React.PropTypes.func.isRequired
 }
 
 Fridge.defaultProps = {

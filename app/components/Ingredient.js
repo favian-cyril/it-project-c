@@ -5,8 +5,11 @@ const Ingredient = (props) => {
   const imageURL = imgBaseURL + props.ingredient.image
   const name = props.ingredient.name
   const dataPlacement = (props.display === 'index') ? 'right' : 'left'
+  const icon = !props.isLoading
+    ? <i className="fa fa-2x fa-plus btn-add-icon"/>
+    : <i className="fa fa-2x fa-spinner fa-pulse btn-loading"/>
   let buttonClass = ''
-  if (props.ingredient.isAdded) {
+  if (props.isAdded && !props.isLoading) {
     buttonClass = `${buttonClass} success`
   }
   return (
@@ -17,7 +20,7 @@ const Ingredient = (props) => {
       <div className="media-body">
         <p className="media-heading">{ name }</p>
       </div>
-      <div className="media-right media-bottom">
+      <div className="media-right media-middle">
         <button
           id={props.idName}
           onMouseUp={props.handleToggle}
@@ -28,7 +31,7 @@ const Ingredient = (props) => {
           data-placement={dataPlacement}
           data-trigger="manual"
         >
-          <i className="fa fa-2x fa-plus btn-add-icon"/>
+          {icon}
         </button>
       </div>
     </li>
@@ -36,6 +39,8 @@ const Ingredient = (props) => {
 }
 
 Ingredient.propTypes = {
+  isLoading: React.PropTypes.bool.isRequired,
+  isAdded: React.PropTypes.bool.isRequired,
   ingredient: React.PropTypes.shape({
     name: React.PropTypes.string.isRequired,
     image: React.PropTypes.string.isRequired

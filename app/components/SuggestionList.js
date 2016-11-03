@@ -12,7 +12,7 @@ const SuggestionList = (props) => {
     results = <Error msg="No results" desc="Your search did not return any results."/>
   } else if (props.errorType === 'OFFLINE') {
     results = <Error msg="No connection" desc="Check your internet connection."/>
-  } else if (props.errorType === "" && props.suggestionResults.length) {
+  } else if (props.errorType === '' && props.suggestionResults.length) {
     results = (
       <ul className="media-list dropdown-menu">
         {
@@ -22,6 +22,7 @@ const SuggestionList = (props) => {
               ingredient={item}
               idName={`ingr_${i}`}
               updateFridge={props.updateFridge}
+              isInFridge={props.isInFridge}
             />
           ))
         }
@@ -43,7 +44,8 @@ SuggestionList.propTypes = {
   suggestionResults: React.PropTypes.arrayOf(
     React.PropTypes.object
   ).isRequired,
-  updateFridge: React.PropTypes.func.isRequired
+  updateFridge: React.PropTypes.func.isRequired,
+  isInFridge: React.PropTypes.func.isRequired
 }
 
 export default SuggestionList

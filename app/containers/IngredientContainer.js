@@ -1,48 +1,77 @@
 import React from 'react'
 import $ from 'jquery'
 import Ingredient from '../components/Ingredient'
-import { browserHistory } from 'react-router'
 import { addIngredient, delIngredient } from '../clientapi'
+import { REDIRECT_INGR_THRESHOLD } from '../config/constants'
 
 class IngredientContainer extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      message: null
+      message: null,
+      isLoading: false,
+      wait: false
     }
     this.handleToggle = this.handleToggle.bind(this)
     this.showTooltip = this.showTooltip.bind(this)
   }
 
+  componentDidUpdate() {
+    if (this.state.wait) {
+      setTimeout(() => {
+        if (this.state.wait) this.setState({ isLoading: true, wait: false })
+      }, 50)
+    }
+  }
+
   handleToggle() {
-    if (!this.props.isAdded) {
+    let unmounting
+    let failed = false
+    if (!this.props.isInFridge(this.props.ingredient)) {
+      unmounting = this.context.display === 'index' &&
+        this.context.fridge.length === REDIRECT_INGR_THRESHOLD - 1
+      if (!unmounting) this.setState({ wait: true })
       addIngredient(this.props.ingredient, (err) => {
         if (!err) {
-          this.setState({ message: `Added ${this.props.ingredient.name} to fridge!` })
+          const successMessage = `Added ${this.props.ingredient.name} to fridge!`
+          this.setState({ message: successMessage })
           this.props.updateFridge('ADD', this.props.ingredient)
+        } else {
+          this.setState({ message: 'Failed to add ingredient.' })
+          failed = true
         }
+        if (!unmounting) this.setState({ isLoading: false, wait: false })
       })
     } else {
+      unmounting = this.props.parent === 'fridge' ||
+        this.context.fridge.length === REDIRECT_INGR_THRESHOLD &&
+        this.context.display === 'dash'
+      console.log(`unmounting: ${unmounting}`)
+      if (!unmounting) this.setState({ wait: true })
       delIngredient(this.props.ingredient, (err) => {
         if (!err) {
-          this.setState({ message: `Deleted ${this.props.ingredient.name} from fridge!` })
+          const successMessage = `Deleted ${this.props.ingredient.name} from fridge!`
+          if (!unmounting) this.setState({ message: successMessage })
           this.props.updateFridge('DEL', this.props.ingredient)
+        } else {
+          this.setState({ message: 'Failed to delete ingredient.' })
+          failed = true
+        }
+        if (!unmounting) {
+          this.setState({ isLoading: false, wait: false })
         }
       })
     }
-    if (this.context.fridge.length !== 1) {
+    if (!unmounting || failed) {
       this.showTooltip()
-    } else if (this.context.display === 'dash') {
-      browserHistory.push('/')
-    } else {
-      browserHistory.push('/dash')
     }
   }
 
   showTooltip() {
+    console.log('showTooltip called')
     const elemId = `#${this.props.idName}`
     window.showTooltip($(elemId))
-    $('.tooltip-inner').last().dangerouslySetInnerHTML(this.state.message)
+    $('.tooltip-inner').last().html(this.state.message)
   }
 
   render() {
@@ -52,6 +81,8 @@ class IngredientContainer extends React.Component {
         idName={this.props.idName}
         handleToggle={this.handleToggle}
         display={this.context.display}
+        isLoading={this.state.isLoading}
+        isAdded={this.props.isInFridge(this.props.ingredient)}
       />
     )
   }
@@ -60,6 +91,7 @@ class IngredientContainer extends React.Component {
 IngredientContainer.propTypes = {
   idName: React.PropTypes.string.isRequired,
   updateFridge: React.PropTypes.func.isRequired,
+  isInFridge: React.PropTypes.func.isRequired,
   ingredient: React.PropTypes.shape({
     name: React.PropTypes.string.isRequired,
     isAdded: React.PropTypes.bool.isRequired

@@ -4,7 +4,9 @@ const Preloader = () => {
   const imgfile = '/images/spin.gif'
   return (
     <div className="preloader">
-      <img src={imgfile} className="centered img-responsive" alt="preloader"/>
+      <div className="spinner-wrapper">
+        <i className="fa fa-4x fa-spinner fa-spin"/>
+      </div>
     </div>
   )
 }

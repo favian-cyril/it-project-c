@@ -5,7 +5,7 @@ const Recipe = (props) => {
   let missingStr
   if (missing) {
     missingStr = missing.slice(0, 4).join(', ')
-    if (missing.length > 3) {
+    if (missing.length > 4) {
       const number = missing.slice(4).length.toString()
       missingStr = `${missingStr} +${number} more`
     }
@@ -35,7 +35,7 @@ const Recipe = (props) => {
 Recipe.propTypes = {
   recipe: React.PropTypes.shape({
     recipeName: React.PropTypes.string.isRequired,
-    imageUrlsBySize: React.PropTypes.array,
+    imageUrlsBySize: React.PropTypes.object,  // eslint-disable-line react/forbid-prop-types
     sourceUrl: React.PropTypes.string,
     missing: React.PropTypes.array
   }).isRequired

@@ -28,6 +28,7 @@ const Dashboard = (props, context) => (
               title="My Fridge"
               contents={context.fridge}
               updateFridge={props.updateFridge}
+              isInFridge={props.isInFridge}
             />
           </div>
         </div>
@@ -35,6 +36,7 @@ const Dashboard = (props, context) => (
           <div className="row">
             <RecipeResults
               isLoading={props.isLoading}
+              viewMore={props.viewMore}
             />
           </div>
         </div>
@@ -46,12 +48,15 @@ const Dashboard = (props, context) => (
 Dashboard.propTypes = {
   updateFridge: React.PropTypes.func.isRequired,
   isInFridge: React.PropTypes.func.isRequired,
+  viewMore: React.PropTypes.func.isRequired,
   isLoading: React.PropTypes.bool.isRequired
 }
 
+// Default props for cloned children
 Dashboard.defaultProps = {
   updateFridge: () => {},
   isInFridge: () => {},
+  viewMore: () => {},
   isLoading: false
 }
 
