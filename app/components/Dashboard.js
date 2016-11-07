@@ -26,7 +26,7 @@ const Dashboard = (props, context) => (
     </nav>
     <div className="container-fluid">
       <div className="row">
-        <div className="col-xs-4 offset-lg-1">
+        <div className="col-xs-4 offset-xs-1">
           <div className="row">
             <Fridge
               title="My Fridge"
@@ -34,6 +34,12 @@ const Dashboard = (props, context) => (
               updateFridge={props.updateFridge}
               isInFridge={props.isInFridge}
               errorType={props.errorType.fridge}
+            />
+          </div>
+          <div className="row">
+            <CookingTodayList
+              title="Cooking Today"
+              contents={context.cookingToday}
             />
           </div>
         </div>
@@ -79,7 +85,8 @@ Dashboard.defaultProps = {
 }
 
 Dashboard.contextTypes = {
-  fridge: React.PropTypes.arrayOf(React.PropTypes.object)
+  fridge: React.PropTypes.arrayOf(React.PropTypes.object),
+  cookingToday: React.PropTypes.arrayOf(React.PropTypes.object)
 }
 
 export default Dashboard
