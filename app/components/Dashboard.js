@@ -1,4 +1,5 @@
 import React from 'react'
+import CookingTodayList from './CookingTodayList'
 import Fridge from './Fridge'
 import RecipeResults from './RecipeResults'
 import SearchContainer from '../containers/SearchContainer'
