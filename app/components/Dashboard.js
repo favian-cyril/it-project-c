@@ -1,4 +1,5 @@
 import React from 'react'
+import CookingTodayList from './CookingTodayList'
 import Fridge from './Fridge'
 import NavUser from './NavUser'
 import RecipeResults from './RecipeResults'
