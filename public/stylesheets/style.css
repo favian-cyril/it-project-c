@@ -227,6 +227,55 @@ div.spinner-wrapper {
   line-height: normal;
 }
 
+/* COOKING TODAY */
+
+button.accordion {
+  background-color: #f6f6f6;
+  color: #444;
+  cursor: pointer;
+  padding: 15px;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid rgb(204,204,204);
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  transition: 0.4s;
+  -webkit-transition: 0.4s;
+}
+
+button.accordion.active, button.accordion:hover {
+  background-color: #ddd;
+}
+
+button.accordion a.fa {
+  float: right;
+  color: #55595c;
+}
+
+button.accordion a.fa:hover {
+  color: rgb(105, 187, 15);
+  text-decoration: none;
+}
+
+div.panel {
+  background-color: white;
+  max-height: 0;
+  overflow: hidden;
+  transition: 0.6s ease-in-out;
+  -webkit-transition: 0.6s ease-in-out;
+  opacity: 0;
+}
+
+div.panel.show {
+  opacity: 1;
+  max-height: 500px;
+}
+
+div.panel ul li.list-group-item {
+  padding: 5px 10px 0px 30px;
+}
+
 /* TOOLTIP (INGREDIENTS) */
 .tooltip-inner.success {
   border-bottom: 2px solid #69bb0f;

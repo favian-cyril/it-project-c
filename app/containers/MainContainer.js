@@ -15,6 +15,7 @@ class MainContainer extends React.Component {
       recipes: [],
       display: null,
       isLoading: false,
+      isExpanded: false,
       recipePage: 1,
       errorType: {
         fridge: '',
@@ -29,6 +30,7 @@ class MainContainer extends React.Component {
     this.moreRecipes = this.moreRecipes.bind(this)
     this.retryRecipes = this.retryRecipes.bind(this)
     this.handleError = this.handleError.bind(this)
+    this.toggleAccordion = this.toggleAccordion.bind(this)
   }
 
   getChildContext() {
@@ -168,6 +170,14 @@ class MainContainer extends React.Component {
       this.setState({ errorType })
     }
     this.setState({ ready: true })
+  }
+
+  toggleAccordion() {
+    if (!this.state.isExpanded) {
+      this.setState({ isExpanded : true })
+    } else {
+      this.setState({ isExpanded : false })
+    }
   }
 
   render() {
