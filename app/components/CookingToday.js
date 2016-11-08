@@ -1,39 +1,39 @@
 import React from 'react'
 
 const CookingToday = (props, context) => {
-  function missingList(props) {
+  function missingItem(props) {
     return (
       <li className="list-group-item">{props.name}</li>
     )
   }
-  function panel(props) {
+  function missingList(props) {
     const missing = props.recipe.missedIngredients.map(item => item.name)
     return (
-      <div className="panel">
-        <ul className="list-group">
-          {missing.map((item) => <missingList key={item} name={item}/>)}
-        </ul>
-      </div>
+      <ul className="list-group">
+        {missing.map((item) => <missingItem key={item} name={item}/>)}
+      </ul>
     )
   }
   const caretClass = !context.isExpanded ? 'fa-caret-right' : 'fa-caret-down'
 
   return (
-    <div className="list-wrapper">
+    <div>
       <button className="accordion" onClick={context.toggleAccordion}>
         <span className={`fa ${caretClass}`}></span>
         {props.recipe.title}
         <a
-          className="btn btn-default btn-add"
+          className="btn btn-sm btn-default btn-add"
           href={props.recipe.sourceUrl}
           target="_blank" rel="noopener noreferrer"
         >
           <i className="fa fa-2x fa-external-link"/>
         </a>
       </button>
-      {
-        context.isExpanded ? <panel/> : null
-      }
+      <div className="panel">
+        {
+          context.isExpanded ? <missingList/> : null
+        }
+      </div>
     </div>
   )
 }
@@ -51,8 +51,8 @@ CookingToday.propTypes = {
 }
 
 CookingToday.contextTypes = {
-  isExpanded: React.PropTypes.bool,
-  toggleAccordion: React.PropTypes.func
+  isExpanded: React.PropTypes.bool.isRequired,
+  toggleAccordion: React.PropTypes.func.isRequired
 }
 
 export default CookingToday

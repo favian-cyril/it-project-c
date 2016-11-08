@@ -18,7 +18,9 @@ const CookingTodayList = (props, context) => {
       <div className="card-block">
         <h5 className="card-title">Cooking Today</h5>
       </div>
-      {results}
+      <div className="list-wrapper">
+        {results}
+      </div>
       <div className="card-footer">
         <button type="button" className="btn btn-success">Add to Shopping List</button>
         <button type="button" className="btn btn-danger">Clear All Recipes</button>
