@@ -1,6 +1,9 @@
 import React from 'react'
 
-const CookingToday = (props, context) => {
+const CookingToday = (props) => {
+  const accordionClass = props.isExpanded ? 'active' : ''
+  const caretClass = !props.isExpanded ? 'fa-caret-right' : 'fa-caret-down'
+
   function missingItem(props) {
     return (
       <li className="list-group-item">{props.name}</li>
@@ -14,11 +17,10 @@ const CookingToday = (props, context) => {
       </ul>
     )
   }
-  const caretClass = !context.isExpanded ? 'fa-caret-right' : 'fa-caret-down'
 
   return (
     <div>
-      <button className="accordion" onClick={context.toggleAccordion}>
+      <button className={`accordion ${accordionClass}`} onClick={props.toggleAccordion}>
         <span className={`fa ${caretClass}`}></span>
         {props.recipe.title}
         <a
@@ -31,7 +33,7 @@ const CookingToday = (props, context) => {
       </button>
       <div className="panel">
         {
-          context.isExpanded ? <missingList/> : null
+          props.isExpanded ? <missingList/> : null
         }
       </div>
     </div>
@@ -47,12 +49,9 @@ CookingToday.propTypes = {
         name: React.PropTypes.string.isRequired
       }).isRequired
     ).isRequired
-  }).isRequired
-}
-
-CookingToday.contextTypes = {
-  isExpanded: React.PropTypes.bool.isRequired,
-  toggleAccordion: React.PropTypes.func.isRequired
+  }).isRequired,
+  toggleAccordion: React.PropTypes.func.isRequired,
+  isExpanded: React.PropTypes.bool.isRequired
 }
 
 export default CookingToday
