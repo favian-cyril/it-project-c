@@ -40,7 +40,9 @@ const Dashboard = (props, context) => (
           <div className="row">
             <CookingTodayList
               title="Cooking Today"
-              contents={context.cookingToday}
+              recipes={context.recipes}
+              toggleAccordion={props.toggleAccordion}
+              isExpanded={props.isExpanded}
             />
           </div>
         </div>
@@ -64,7 +66,9 @@ Dashboard.propTypes = {
   isInFridge: React.PropTypes.func.isRequired,
   moreRecipes: React.PropTypes.func.isRequired,
   retryRecipes: React.PropTypes.func.isRequired,
+  toggleAccordion: React.PropTypes.func.isRequired,
   isLoading: React.PropTypes.bool.isRequired,
+  isExpanded: React.PropTypes.bool.isRequired,
   errorType: React.PropTypes.shape({
     fridge: React.PropTypes.string.isRequired,
     recipes: React.PropTypes.string.isRequired
@@ -81,13 +85,15 @@ Dashboard.defaultProps = {
   isInFridge: () => {},
   moreRecipes: () => {},
   retryRecipes: () => {},
+  user: {},
+  toggleAccordion: () => {},
   isLoading: false,
-  user: {}
+  isExpanded: false
 }
 
 Dashboard.contextTypes = {
   fridge: React.PropTypes.arrayOf(React.PropTypes.object),
-  cookingToday: React.PropTypes.arrayOf(React.PropTypes.object)
+  recipes: React.PropTypes.arrayOf(React.PropTypes.object)
 }
 
 export default Dashboard
