@@ -22,6 +22,12 @@ userSchema.methods.delFromFridge = function (ingredient, cb) {
   this.constructor.update(query, update, cb)
 }
 
+userSchema.methods.addCookToday = function (recipe, cb) {
+  const query = {id: this.id, 'cookingToday.id': {'$ne': recipe.id} }
+  const update = { '$push': { 'cookingToday': recipe} }
+  this.constructor.update(query, update, cb)
+}
+
 var User = mongoose.model('User', userSchema)
 
 module.exports = User

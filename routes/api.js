@@ -2,6 +2,7 @@ var express = require('express')
 var router = express.Router()
 var apicalls = require('../modules/apicalls')
 var fridge = require('../modules/fridge')
+var cooktoday = require('../modules/cookingtoday')
 
 var searchIngredients = apicalls.searchIngredients
 var searchResults = apicalls.searchResults
@@ -67,6 +68,18 @@ router.get('/fridge/get', function (req, res, next) {
       res.json(fridge)
     } else {
       console.log('Failed to fetch from database.')
+      next(err)
+    }
+  })
+})
+
+router.post('/cooktoday/add', function(req, res, next) {
+  cooktoday.addCookToday(req, function(err) {
+    if (!err) {
+      console.log('Added ${req.body.item.name} to Cooking Today')
+      res.status(200).end()
+    } else {
+      console.log('Failed to add')
       next(err)
     }
   })

@@ -1,0 +1,24 @@
+var models = require('../models')
+var User = models.user
+
+function addCookToday (req, cb) {
+  if (req.session.user.id) {
+    var recipe = req.body.item
+    if (req.session.user.cookingToday.indexOf(recipe.id) === -1) {
+      req.session.user.cookingToday.push(recipe)
+      User.findOne({ id: req.session.user.id }, function(err, user) {
+        user.addCookToday(recipe, function(err) {
+          if (!err) {
+            cb(null)
+          } else {
+            cb(err)
+          }
+        })
+      })
+    } else {
+      cb(null)
+    }
+  } else {
+    cb(new Error('Session key lookup failed.'))
+  }
+}
