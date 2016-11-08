@@ -50,7 +50,7 @@ div.card-block {
 }
 
 .list-wrapper {
-  height: 33vh;
+  height: 27vh;
   overflow-y: auto;
 }
 
@@ -248,14 +248,8 @@ button.accordion.active, button.accordion:hover {
   background-color: #ddd;
 }
 
-button.accordion a.fa {
+button.accordion a {
   float: right;
-  color: #55595c;
-}
-
-button.accordion a.fa:hover {
-  color: rgb(105, 187, 15);
-  text-decoration: none;
 }
 
 div.panel {
