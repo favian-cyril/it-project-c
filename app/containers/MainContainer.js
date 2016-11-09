@@ -13,6 +13,7 @@ class MainContainer extends React.Component {
       ready: false,
       fridge: [],
       recipes: [],
+      cookingToday: [],
       display: null,
       isLoading: false,
       isExpanded: true,
@@ -37,7 +38,8 @@ class MainContainer extends React.Component {
     return {
       fridge: this.state.fridge,
       display: this.state.display,
-      recipes: this.state.recipes
+      recipes: this.state.recipes,
+      cookingToday: this.state.cookingToday
     }
   }
 
@@ -211,6 +213,7 @@ MainContainer.propTypes = {
 MainContainer.childContextTypes = {
   fridge: React.PropTypes.arrayOf(React.PropTypes.object),
   recipes: React.PropTypes.arrayOf(React.PropTypes.object),
+  cookingToday: React.PropTypes.arrayOf(React.PropTypes.object),
   display: React.PropTypes.oneOf(['index', 'dash'])
 }
 

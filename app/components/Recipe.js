@@ -27,11 +27,17 @@ const Recipe = (props) => {
       </div>
       <div className="media-right media-middle">
         <a
-          className="btn btn-default btn-add"
+          className="btn btn-block btn-info"
           href={props.recipe.sourceUrl}
           target="_blank" rel="noopener noreferrer"
         >
-          <i className="fa fa-2x fa-external-link"/>
+          View Recipe
+        </a>
+        <a
+          className="btn btn-block btn-success"
+          onClick={props.addCT}
+        >
+          + Cooking Today
         </a>
       </div>
     </li>
@@ -48,7 +54,8 @@ Recipe.propTypes = {
         name: React.PropTypes.string.isRequired
       }).isRequired
     ).isRequired
-  }).isRequired
+  }).isRequired,
+  addCT: React.PropTypes.func.isRequired
 }
 
 export default Recipe
