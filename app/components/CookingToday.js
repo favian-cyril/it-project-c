@@ -1,21 +1,12 @@
 import React from 'react'
 
 const CookingToday = (props) => {
+  const missing = props.recipe.missedIngredients.map(item => item.name)
   const accordionClass = props.isExpanded ? 'active' : ''
   const caretClass = !props.isExpanded ? 'fa-caret-right' : 'fa-caret-down'
 
   function missingItem(props) {
-    return (
-      <li className="list-group-item">{props.name}</li>
-    )
-  }
-  function missingList(props) {
-    const missing = props.recipe.missedIngredients.map(item => item.name)
-    return (
-      <ul className="list-group">
-        {missing.map((item) => <missingItem key={item} name={item}/>)}
-      </ul>
-    )
+    return <li className="list-group-item">{props.name}</li>;
   }
 
   return (
@@ -32,9 +23,9 @@ const CookingToday = (props) => {
         </a>
       </button>
       <div className="panel">
-        {
-          props.isExpanded ? <missingList/> : null
-        }
+        <ul className="list-group">
+          {missing.map((item, i) => <missingItem key={i} name={item}/>)}
+        </ul>
       </div>
     </div>
   )

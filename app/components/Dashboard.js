@@ -88,7 +88,7 @@ Dashboard.defaultProps = {
   user: {},
   toggleAccordion: () => {},
   isLoading: false,
-  isExpanded: false
+  isExpanded: true
 }
 
 Dashboard.contextTypes = {
