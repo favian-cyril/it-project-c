@@ -81,7 +81,7 @@ Dashboard.defaultProps = {
   retryRecipes: () => {},
   toggleAccordion: () => {},
   isLoading: false,
-  isExpanded: false
+  isExpanded: true
 }
 
 Dashboard.contextTypes = {
