@@ -13,7 +13,7 @@ const Dashboard = (props, context) => (
             <img className="img-responsive" src="../images/logo-1x.png" alt="logo-nav"/>
           </div>
         </div>
-        <div className="col-xs-7 search-bar-fix">
+        <div className="col-xs-6 offset-xs-1 search-bar-fix">
           <div className="container">
             <SearchContainer
               updateFridge={props.updateFridge}
@@ -38,7 +38,7 @@ const Dashboard = (props, context) => (
           <div className="row">
             <CookingTodayList
               title="Cooking Today"
-              recipes={context.recipes}
+              cookingToday={context.cookingToday}
               toggleAccordion={props.toggleAccordion}
               isExpanded={props.isExpanded}
             />
@@ -48,6 +48,7 @@ const Dashboard = (props, context) => (
           <div className="row">
             <RecipeResults
               isLoading={props.isLoading}
+              addCT={props.addCT}
               moreRecipes={props.moreRecipes}
               retryRecipes={props.retryRecipes}
               errorType={props.errorType.recipes}
@@ -64,6 +65,7 @@ Dashboard.propTypes = {
   isInFridge: React.PropTypes.func.isRequired,
   moreRecipes: React.PropTypes.func.isRequired,
   retryRecipes: React.PropTypes.func.isRequired,
+  addCT: React.PropTypes.func,
   toggleAccordion: React.PropTypes.func.isRequired,
   isLoading: React.PropTypes.bool.isRequired,
   isExpanded: React.PropTypes.bool.isRequired,
@@ -79,6 +81,7 @@ Dashboard.defaultProps = {
   isInFridge: () => {},
   moreRecipes: () => {},
   retryRecipes: () => {},
+  addCT: () => {},
   toggleAccordion: () => {},
   isLoading: false,
   isExpanded: true
@@ -86,7 +89,8 @@ Dashboard.defaultProps = {
 
 Dashboard.contextTypes = {
   fridge: React.PropTypes.arrayOf(React.PropTypes.object),
-  recipes: React.PropTypes.arrayOf(React.PropTypes.object)
+  recipes: React.PropTypes.arrayOf(React.PropTypes.object),
+  cookingToday: React.PropTypes.arrayOf(React.PropTypes.object)
 }
 
 export default Dashboard
