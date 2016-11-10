@@ -2,13 +2,13 @@ import React from 'react'
 
 const CookingToday = (props) => {
   const missing = props.recipe.missedIngredients.map(item => item.name)
-  const accordionClass = props.isExpanded ? 'active' : ''
-  const caretClass = props.isExpanded ? 'fa-caret-down' : 'fa-caret-right'
-  const panelClass = props.isExpanded ? 'show' : ''
+  const accordionClass = props.isExpanded ? ' active' : ''
+  const caretClass = !props.isExpanded ? 'fa-caret-right' : 'fa-caret-down'
+  const panel = !props.isExpanded ? ' show' : ''
 
   return (
     <div>
-      <button className={`accordion ${accordionClass}`} onClick={props.toggleAccordion}>
+      <button className={`accordion${accordionClass}`} onClick={props.toggleAccordion}>
         <span className={`fa ${caretClass}`}></span>
         {props.recipe.title}
         <a
@@ -19,17 +19,9 @@ const CookingToday = (props) => {
           <i className="fa fa-2x fa-external-link"/>
         </a>
       </button>
-      <div className={`panel ${panelClass}`}>
+      <div className={`panel${panel}`}>
         <ul className="list-group">
-          {
-            props.recipe.missedIngredients.map((item, i) => (
-                <CookingTodayIngredient
-                  key={i}
-                  ingredient={item}
-                />
-              )
-            )
-          }
+          {missing.map((item, i) => <li className="list-group-item" id={i}>{item}</li>)}
         </ul>
       </div>
     </div>
