@@ -10,7 +10,7 @@ const CookingTodayList = (props) => (
     </div>
     <div className="list-wrapper">
       {
-        props.recipes.map((item, i) => (
+        props.cookingToday.map((item, i) => (
             <CookingToday
               key={i}
               recipe={item}
@@ -22,15 +22,17 @@ const CookingTodayList = (props) => (
       }
     </div>
     <div className="card-footer">
-      <button type="button" className="btn btn-success">Add to Shopping List</button>
-      <button type="button" className="btn btn-danger">Clear All Recipes</button>
+      <center>
+        <button type="button" className="btn btn-danger">Clear All Recipes</button>
+        <button type="button" className="btn btn-success">+ Shopping List</button>
+      </center>
     </div>
   </div>
 )
 
 CookingTodayList.propTypes = {
   title: React.PropTypes.string.isRequired,
-  recipes: React.PropTypes.arrayOf(
+  cookingToday: React.PropTypes.arrayOf(
     React.PropTypes.object
   ).isRequired,
   toggleAccordion: React.PropTypes.func.isRequired,
