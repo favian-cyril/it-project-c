@@ -189,7 +189,8 @@ class MainContainer extends React.Component {
               retryRecipes: this.retryRecipes,
               isLoading: this.state.isLoading,
               errorType: this.state.errorType,
-              toggleAccordion: this.toggleAccordion
+              toggleAccordion: this.toggleAccordion,
+              isExpanded: this.state.isExpanded
             })
             : <div className="absolute-center"><Preloader/></div>
         }
