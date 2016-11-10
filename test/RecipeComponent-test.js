@@ -35,11 +35,11 @@ describe('Recipe', function() {
   it('should display sourceUrl', function() {
     assert.equal(wrapper.contains(
       <a
-        className="btn btn-default btn-add"
-        href={recipe.sourceUrl}
+        className="btn btn-block btn-info"
+        href={props.recipe.sourceUrl}
         target="_blank" rel="noopener noreferrer"
       >
-      <i className="fa fa-2x fa-external-link"/>
+        View Recipe
       </a>
     ), true)
   })
