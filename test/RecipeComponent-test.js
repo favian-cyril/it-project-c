@@ -36,7 +36,7 @@ describe('Recipe', function() {
     assert.equal(wrapper.contains(
       <a
         className="btn btn-block btn-info"
-        href={props.recipe.sourceUrl}
+        href={recipe.sourceUrl}
         target="_blank" rel="noopener noreferrer"
       >
         View Recipe
