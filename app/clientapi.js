@@ -33,9 +33,14 @@ function getFridge() {
 }
 
 function addCookToday(recipe) {
-  const url = '${baseUrl}cooktoday/add'
-  const form = { item: recipe}
+  const url = `${baseUrl}cooktoday/add`
+  const form = { item: JSON.stringify(recipe)}
   return post(url, form)
+}
+
+function getCookToday() {
+  const url = `${baseUrl}cooktoday/get`
+  return get(url)
 }
 
 function get(url, params) {
@@ -58,5 +63,7 @@ module.exports = {
   searchResults,
   addIngredient,
   delIngredient,
-  getFridge
+  getFridge,
+  addCookToday,
+  getCookToday
 }

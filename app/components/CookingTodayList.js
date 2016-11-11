@@ -9,12 +9,17 @@ const CookingTodayList = (props) => (
       <h5 className="card-title">Cooking Today</h5>
     </div>
     <div className="list-wrapper">
+    {
+      props.cookingToday.map((item, i) => (
       <CookingToday
-        key={1}
-        recipe={{title:'foo', sourceUrl:'bar', missedIngredients:[{name: 'foo'},{name: 'bar'}]}}
+        key={i}
+        recipe={item}
         toggleAccordion={props.toggleAccordion}
         isExpanded={props.isExpanded}
       />
+      ))
+    }
+
     </div>
     <div className="card-footer">
       <center>

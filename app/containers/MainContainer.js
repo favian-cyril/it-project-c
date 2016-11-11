@@ -2,7 +2,7 @@ import React from 'react'
 import _ from 'lodash'
 import { browserHistory } from 'react-router'
 import Preloader from '../components/Preloader'
-import { getFridge, searchResults } from '../clientapi'
+import { getFridge, searchResults, addCookToday, getCookToday } from '../clientapi'
 import { REDIRECT_INGR_THRESHOLD } from '../config/constants'
 import anims from '../utils/anims'
 
@@ -31,6 +31,7 @@ class MainContainer extends React.Component {
     this.retryRecipes = this.retryRecipes.bind(this)
     this.handleError = this.handleError.bind(this)
     this.toggleAccordion = this.toggleAccordion.bind(this)
+    this.fetchCookToday = this.fetchCookToday.bind(this)
   }
 
   getChildContext() {
@@ -51,7 +52,9 @@ class MainContainer extends React.Component {
     this.fetchFridge().then(() => {
       if (this.state.fridge.length > 0) {
         this.fetchRecipes().then(() => {
-          this.setState({ ready: true })
+          this.fetchCookToday().then(() => {
+            this.setState({ ready: true })
+          })
         })
       } else {
         this.setState({ ready: true })
@@ -116,6 +119,35 @@ class MainContainer extends React.Component {
         })
     })
   }
+
+  fetchCookToday() {
+    return new Promise((resolve) => {
+      getCookToday()
+        .then((results) => {
+          console.log('fetched')
+          this.setState({ cookingtoday: results })
+          resolve()
+        })
+        .catch((error) => {
+          console.log(error)
+          //this.handleError(error, 'cooktoday') TODO
+        })
+    })
+  }
+
+  addCookingToday(recipe) {
+  if (this.state.cookingToday.find((item) => {return item.id === recipe.id}) !== undefined) {
+      addCookToday(recipe)
+        .then(() => {
+          var newCook = this.state.cookingToday.push(recipe)
+          console.log(newCook)
+          this.setState({ cookingToday: newCook})
+          this.fetchCookToday()
+        })
+        .catch((err) => {
+          console.log(err)
+        })}
+    }
 
   updateFridge(action, ingredient) {
     const newFridge = this.state.fridge.slice()
@@ -190,7 +222,8 @@ class MainContainer extends React.Component {
               isLoading: this.state.isLoading,
               errorType: this.state.errorType,
               toggleAccordion: this.toggleAccordion,
-              isExpanded: this.state.isExpanded
+              isExpanded: this.state.isExpanded,
+              addCookToday: this.addCookingToday
             })
             : <div className="absolute-center"><Preloader/></div>
         }
