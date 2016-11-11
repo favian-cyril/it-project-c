@@ -89,10 +89,22 @@ router.get('/user/data', function (req, res, next) {
 router.post('/cooktoday/add', function(req, res, next) {
   cooktoday.addCookToday(req, function(err) {
     if (!err) {
-      console.log('Added ${req.body.item.name} to Cooking Today')
+      console.log(`Added ${req.body.item} to Cooking Today`)
       res.status(200).end()
     } else {
       console.log('Failed to add')
+      next(err)
+    }
+  })
+})
+
+router.get('/cooktoday/get', function(req, res, next) {
+  cooktoday.getCookToday(req, function(err, cooktoday) {
+    if (!err) {
+      console.log('CookingToday fetched from database!')
+      res.json(cooktoday)
+    } else {
+      console.log('Failed to fetch')
       next(err)
     }
   })

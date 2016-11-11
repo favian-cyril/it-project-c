@@ -35,7 +35,7 @@ const Recipe = (props) => {
         </a>
         <a
           className="btn btn-block btn-success"
-          onClick={props.addCT}
+          onClick={function(){ props.addCookToday(props.recipe)}}
         >
           + Cooking Today
         </a>
@@ -55,7 +55,10 @@ Recipe.propTypes = {
       }).isRequired
     ).isRequired
   }).isRequired,
-  addCT: React.PropTypes.func.isRequired
+  addCookToday: React.PropTypes.func.isRequired
 }
 
+Recipe.contextTypes = {
+  cookingtoday: React.PropTypes.arrayOf(React.PropTypes.object)
+}
 export default Recipe

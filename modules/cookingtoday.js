@@ -22,3 +22,16 @@ function addCookToday (req, cb) {
     cb(new Error('Session key lookup failed.'))
   }
 }
+
+function getCookToday (req, cb) {
+  if (req.session.user.id) {
+    cb(null, req.session.cookingToday)
+  } else {
+    cb(new Error('Session key lookup failed.'))
+  }
+}
+
+module.exports = {
+  addCookToday,
+  getCookToday
+}

@@ -1,4 +1,5 @@
 import React from 'react'
+import CookingTodayIngredient from './CookingTodayIngredient'
 
 const CookingToday = (props) => {
   const missing = props.recipe.missedIngredients.map(item => item.name)
