@@ -69,10 +69,7 @@ module.exports = {
   addIngredient,
   delIngredient,
   getFridge,
-<<<<<<< HEAD
-=======
   fetchUser,
->>>>>>> bbe02a77aed7964a599a2687f51e39bf7e0b6a97
   addCookToday,
   getCookToday
 }

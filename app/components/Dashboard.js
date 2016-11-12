@@ -93,8 +93,8 @@ Dashboard.defaultProps = {
   addCookToday: () => {},
   toggleAccordion: () => {},
   isLoading: false,
-  isExpanded: {expand:true, id:0}
-  user: {},
+  isExpanded: {expand:true, id:0},
+  user: {}
 }
 
 Dashboard.contextTypes = {

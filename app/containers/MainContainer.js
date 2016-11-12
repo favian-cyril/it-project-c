@@ -2,11 +2,7 @@ import React from 'react'
 import _ from 'lodash'
 import { browserHistory } from 'react-router'
 import Preloader from '../components/Preloader'
-<<<<<<< HEAD
-import { getFridge, searchResults, addCookToday, getCookToday } from '../clientapi'
-=======
 import { getFridge, searchResults, fetchUser, addCookToday, getCookToday } from '../clientapi'
->>>>>>> bbe02a77aed7964a599a2687f51e39bf7e0b6a97
 import { REDIRECT_INGR_THRESHOLD } from '../config/constants'
 import anims from '../utils/anims'
 
@@ -20,11 +16,7 @@ class MainContainer extends React.Component {
       cookingToday: [],
       display: null,
       isLoading: false,
-<<<<<<< HEAD
       isExpanded: {expand:true, id:0},
-=======
-      isExpanded: true,
->>>>>>> bbe02a77aed7964a599a2687f51e39bf7e0b6a97
       recipePage: 1,
       errorType: {
         fridge: '',
