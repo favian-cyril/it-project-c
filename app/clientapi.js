@@ -32,9 +32,14 @@ function getFridge() {
   return get(url)
 }
 
+function fetchUser() {
+  const url = `${baseUrl}user/data`
+  return get(url)
+}
+
 function addCookToday(recipe) {
   const url = `${baseUrl}cooktoday/add`
-  const form = { item: JSON.stringify(recipe)}
+  const form = { item: recipe }
   return post(url, form)
 }
 
@@ -64,6 +69,10 @@ module.exports = {
   addIngredient,
   delIngredient,
   getFridge,
+<<<<<<< HEAD
+=======
+  fetchUser,
+>>>>>>> bbe02a77aed7964a599a2687f51e39bf7e0b6a97
   addCookToday,
   getCookToday
 }

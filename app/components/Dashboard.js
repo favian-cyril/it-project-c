@@ -1,6 +1,7 @@
 import React from 'react'
 import CookingTodayList from './CookingTodayList'
 import Fridge from './Fridge'
+import NavUser from './NavUser'
 import RecipeResults from './RecipeResults'
 import SearchContainer from '../containers/SearchContainer'
 
@@ -8,7 +9,7 @@ const Dashboard = (props, context) => (
   <div className="dash-container">
     <nav className="navbar navbar-fixed-top navbar-light clearfix">
       <div className="row">
-        <div className="col-xs-3 offset-xs-1">
+        <div className="col-xs-2 offset-xs-1">
           <div className="navbar-brand" href="#">
             <img className="img-responsive" src="../images/logo-1x.png" alt="logo-nav"/>
           </div>
@@ -21,6 +22,7 @@ const Dashboard = (props, context) => (
             />
           </div>
         </div>
+        <NavUser user={props.user}/>
       </div>
     </nav>
     <div className="container-fluid">
@@ -75,7 +77,11 @@ Dashboard.propTypes = {
   errorType: React.PropTypes.shape({
     fridge: React.PropTypes.string.isRequired,
     recipes: React.PropTypes.string.isRequired
-  })
+  }),
+  user: React.PropTypes.shape({
+    id: React.PropTypes.string,
+    name: React.PropTypes.string
+  }).isRequired
 }
 
 // Default props for cloned children
@@ -88,6 +94,7 @@ Dashboard.defaultProps = {
   toggleAccordion: () => {},
   isLoading: false,
   isExpanded: {expand:true, id:0}
+  user: {},
 }
 
 Dashboard.contextTypes = {

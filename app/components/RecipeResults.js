@@ -98,7 +98,8 @@ RecipeResults.propTypes = {
 }
 
 RecipeResults.contextTypes = {
-  recipes: React.PropTypes.arrayOf(React.PropTypes.object)
+  recipes: React.PropTypes.arrayOf(React.PropTypes.object),
+  cookingtoday: React.PropTypes.arrayOf(React.PropTypes.object)
 }
 
 export default RecipeResults

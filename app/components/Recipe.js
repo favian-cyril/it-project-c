@@ -58,4 +58,7 @@ Recipe.propTypes = {
   addCookToday: React.PropTypes.func.isRequired
 }
 
+Recipe.contextTypes = {
+  cookingtoday: React.PropTypes.arrayOf(React.PropTypes.object)
+}
 export default Recipe

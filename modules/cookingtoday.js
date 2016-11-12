@@ -25,7 +25,7 @@ function addCookToday (req, cb) {
 
 function getCookToday (req, cb) {
   if (req.session.user.id) {
-    cb(null, req.session.cookingToday)
+    cb(null, req.session.user.cookingToday)
   } else {
     cb(new Error('Session key lookup failed.'))
   }
