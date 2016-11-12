@@ -33,6 +33,7 @@ class MainContainer extends React.Component {
     this.handleError = this.handleError.bind(this)
     this.toggleAccordion = this.toggleAccordion.bind(this)
     this.fetchCookToday = this.fetchCookToday.bind(this)
+    this.addCookingToday = this.addCookingToday.bind(this)
   }
 
   getChildContext() {
@@ -141,18 +142,16 @@ class MainContainer extends React.Component {
   }
 
   addCookingToday(recipe) {
-  if (this.state.cookingToday.find((item) => {return item.id === recipe.id}) !== undefined) {
+    if (!(_.find(this.state.cookingToday, item => item.id === recipe.id))) {
       addCookToday(recipe)
         .then(() => {
-          var newCook = this.state.cookingToday.push(recipe)
-          console.log(newCook)
-          this.setState({ cookingToday: newCook})
-          this.fetchCookToday()
+          this.setState({ cookingToday: this.state.cookingToday.concat(recipe) })
         })
         .catch((err) => {
           console.log(err)
-        })}
+        })
     }
+  }
 
   updateFridge(action, ingredient) {
     const newFridge = this.state.fridge.slice()

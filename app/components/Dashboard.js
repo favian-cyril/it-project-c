@@ -67,7 +67,7 @@ Dashboard.propTypes = {
   isInFridge: React.PropTypes.func.isRequired,
   moreRecipes: React.PropTypes.func.isRequired,
   retryRecipes: React.PropTypes.func.isRequired,
-  addCookToday: React.PropTypes.func,
+  addCookToday: React.PropTypes.func.isRequired,
   toggleAccordion: React.PropTypes.func.isRequired,
   isLoading: React.PropTypes.bool.isRequired,
   isExpanded: React.PropTypes.bool.isRequired,
