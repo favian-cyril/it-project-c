@@ -13,6 +13,7 @@ const CookingTodayList = (props) => (
       props.cookingToday.map((item, i) => (
       <CookingToday
         key={i}
+        id={i}
         recipe={item}
         toggleAccordion={props.toggleAccordion}
         isExpanded={props.isExpanded}
@@ -36,7 +37,10 @@ CookingTodayList.propTypes = {
     React.PropTypes.object
   ).isRequired,
   toggleAccordion: React.PropTypes.func.isRequired,
-  isExpanded: React.PropTypes.bool.isRequired
+  isExpanded: React.PropTypes.shape({
+    expand: React.PropTypes.bool.isRequired,
+    id: React.PropTypes.number.isRequired
+  }).isRequired
 }
 
 export default CookingTodayList

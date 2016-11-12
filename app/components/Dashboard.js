@@ -68,7 +68,10 @@ Dashboard.propTypes = {
   addCookToday: React.PropTypes.func.isRequired,
   toggleAccordion: React.PropTypes.func.isRequired,
   isLoading: React.PropTypes.bool.isRequired,
-  isExpanded: React.PropTypes.bool.isRequired,
+  isExpanded: React.PropTypes.shape({
+    expand: React.PropTypes.bool.isRequired,
+    id: React.PropTypes.number.isRequired
+  }).isRequired,
   errorType: React.PropTypes.shape({
     fridge: React.PropTypes.string.isRequired,
     recipes: React.PropTypes.string.isRequired
@@ -84,7 +87,7 @@ Dashboard.defaultProps = {
   addCookToday: () => {},
   toggleAccordion: () => {},
   isLoading: false,
-  isExpanded: true
+  isExpanded: {expand:true, id:0}
 }
 
 Dashboard.contextTypes = {

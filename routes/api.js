@@ -76,7 +76,9 @@ router.get('/fridge/get', function (req, res, next) {
 router.post('/cooktoday/add', function(req, res, next) {
   cooktoday.addCookToday(req, function(err) {
     if (!err) {
-      console.log(`Added ${req.body.item} to Cooking Today`)
+      if (req.body.item > 0) {
+        console.log(`Added ${req.body.item.title} to Cooking Today`)
+      }
       res.status(200).end()
     } else {
       console.log('Failed to add')

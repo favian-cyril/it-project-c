@@ -16,7 +16,7 @@ class MainContainer extends React.Component {
       cookingToday: [],
       display: null,
       isLoading: false,
-      isExpanded: true,
+      isExpanded: {expand:true, id:0},
       recipePage: 1,
       errorType: {
         fridge: '',
@@ -129,8 +129,10 @@ class MainContainer extends React.Component {
     return new Promise((resolve) => {
       getCookToday()
         .then((results) => {
-          console.log('fetched')
-          this.setState({ cookingToday: results })
+          console.log(results)
+          if (results.length > 0) {
+            this.setState({ cookingToday: results })
+          }
           resolve()
         })
         .catch((error) => {
@@ -204,11 +206,11 @@ class MainContainer extends React.Component {
     this.setState({ ready: true })
   }
 
-  toggleAccordion() {
-    if (!this.state.isExpanded) {
-      this.setState({ isExpanded : true })
+  toggleAccordion(id) {
+    if (!this.state.isExpanded.expand || this.state.isExpanded.id !== id) {
+      this.setState({ isExpanded : {expand: true, id:id} })
     } else {
-      this.setState({ isExpanded : false })
+      this.setState({ isExpanded : {expand: false, id:id} })
     }
   }
 
