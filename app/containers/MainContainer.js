@@ -50,22 +50,23 @@ class MainContainer extends React.Component {
   }
 
   componentDidMount() {
-    fetchUser()
-      .then((data) => {
-        this.setState({ user: data.user })
-        this.fetchDisplay(this.props.location.pathname)
-        this.fetchFridge().then(() => {
-          if (this.state.fridge.length > 0) {
-            this.fetchRecipes().then(() => {
-              this.fetchCookToday().then(() => {
-                this.setState({ ready: true })
-              })
-            })
-          } else {
-            this.setState({ ready: true })
-          }
+    Promise.all([
+      fetchUser(),
+      this.fetchDisplay(),
+      this.fetchFridge(),
+      this.fetchCookToday()
+    ]).then((data) => {
+      this.setState({ user: data.user })
+      if (this.state.fridge.length > 0) {
+        this.fetchRecipes().then(() => {
+          this.setState({ ready: true })
         })
-      })
+      } else {
+        this.setState({ ready: true })
+      }
+    }).catch((err) => {
+      console.error(err)   // TODO: Display error on failure in fetching initial data
+    })
   }
 
   componentWillUpdate(nextProps, nextState) {
@@ -89,7 +90,8 @@ class MainContainer extends React.Component {
     }
   }
 
-  fetchDisplay(pathname) {
+  fetchDisplay() {
+    const pathname = this.props.location.pathname
     if (pathname === '/') {
       this.setState({ display: 'index' })
     } else if (pathname === '/dash') {
