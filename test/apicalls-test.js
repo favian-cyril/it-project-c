@@ -1,22 +1,53 @@
 import sinon from 'sinon'
 import assert from 'assert'
-import {searchIngredients, get}  from '../modules/apicalls'
-import request from 'request'
-import events from 'events'
+import {searchIngredients, searchResults}  from '../modules/apicalls'
+import axios from 'axios'
+import sinonStubPromise from 'sinon-stub-promise'
 
-describe('server searchIngredients()', function() {
-  it('should call get', function() {
-    var mock = sinon.spy(get)
-    searchIngredients('foo', true, function(err, res, body) {
-      if (err) return done(err)
+sinonStubPromise(sinon)
 
-      assert.equal(mock.calledOnce, true)
-    })
+describe('server apicalls', function() {
+  describe('searchIngredients', function() {
+    it('should return with answer when parsed text', sinon.test(function() {
+      var res = {
+        data: [
+          { sourceUrl: 'foo' },
+          { sourceUrl: 'bar' }
+        ]
+      }
+      var input = 'foo'
+      var mock = sinon.stub(axios, 'get').returnsPromise().resolves(res)
+      searchIngredients(input, 5, function(err, body) {
+        assert.equal(body,res.data)
+        mock.restore()
+      })
+    }))
+    it('should return with error when something happens', sinon.test(function() {
+      var err = 'fooError'
+      var input = 'foo'
+      var mock = sinon.stub(axios, 'get').returnsPromise().rejects(err)
+      searchIngredients(input, 5, function(error, body) {
+        assert.equal(error, err)
+        mock.restore()
+      })
+    }))
   })
-  it('should call request.get function', function() {
-    var mock = sinon.stub(request, 'get')
-    searchIngredients('foo', function(err, res, body) { })
-    mock.restore()
-    sinon.assert.calledOnce(mock)
+  describe('searchResults', function() {
+    it('should return with answer when parsed an array of ingredients', sinon.test(function() {
+      var input = ['foo','bar','baz']
+      var res = {
+        data: [
+          { sourceUrl: 'foo' },
+          { sourceUrl: 'bar' },
+          { sourceUrl: 'baz' }
+        ]
+      }
+      var linkArr = ['link','link','link']
+      var mock1 = sinon.stub(axios, 'get').returnsPromise().resolves(res)
+      searchResults(input, 1, function(err, body) {
+        assert.equal(mock1.callCount, res.data.length+1)
+        mock1.restore()
+      })
+    }))
   })
 })
