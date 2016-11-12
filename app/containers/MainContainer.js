@@ -125,7 +125,7 @@ class MainContainer extends React.Component {
       getCookToday()
         .then((results) => {
           console.log('fetched')
-          this.setState({ cookingtoday: results })
+          this.setState({ cookingToday: results })
           resolve()
         })
         .catch((error) => {
