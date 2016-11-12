@@ -50,22 +50,6 @@ class MainContainer extends React.Component {
   }
 
   componentDidMount() {
-<<<<<<< HEAD
-    Promise.all([
-      this.fetchDisplay(),
-      this.fetchFridge(),
-      this.fetchCookToday()
-    ]).then(() => {
-      if (this.state.fridge.length > 0) {
-        this.fetchRecipes().then(() => {
-          this.setState({ ready: true })
-        })
-      } else {
-        this.setState({ ready: true })
-      }
-    }).catch((err) => {
-      console.error(err)   // TODO: Display error on failure in fetching initial data
-=======
     fetchUser().then((data) => {
       this.setState({ user: data.user })
       Promise.all([
@@ -83,7 +67,6 @@ class MainContainer extends React.Component {
       }).catch((err) => {
         console.error(err)   // TODO: Display error on failure in fetching initial data
       })
->>>>>>> bbe02a77aed7964a599a2687f51e39bf7e0b6a97
     })
   }
 
