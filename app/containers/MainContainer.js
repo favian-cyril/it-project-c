@@ -49,17 +49,20 @@ class MainContainer extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchDisplay(this.props.location.pathname)
-    this.fetchFridge().then(() => {
+    Promise.all([
+      this.fetchDisplay(),
+      this.fetchFridge(),
+      this.fetchCookToday()
+    ]).then(() => {
       if (this.state.fridge.length > 0) {
         this.fetchRecipes().then(() => {
-          this.fetchCookToday().then(() => {
-            this.setState({ ready: true })
-          })
+          this.setState({ ready: true })
         })
       } else {
         this.setState({ ready: true })
       }
+    }).catch((err) => {
+      console.error(err)   // TODO: Display error on failure in fetching initial data
     })
   }
 
@@ -84,7 +87,8 @@ class MainContainer extends React.Component {
     }
   }
 
-  fetchDisplay(pathname) {
+  fetchDisplay() {
+    const pathname = this.props.location.pathname
     if (pathname === '/') {
       this.setState({ display: 'index' })
     } else if (pathname === '/dash') {
