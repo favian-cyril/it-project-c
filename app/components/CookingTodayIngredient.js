@@ -5,11 +5,9 @@ const CookingTodayIngredient = (props) => (
 )
 
 CookingTodayIngredient.propTypes = {
-  ingredient: React.PropTypes.arrayOf(
-    React.PropTypes.shape({
-      name: React.PropTypes.string.isRequired
-    }).isRequired
-  ).isRequired
+  ingredient: React.PropTypes.shape({
+    name: React.PropTypes.string.isRequired
+  }).isRequired
 }
 
 export default CookingTodayIngredient

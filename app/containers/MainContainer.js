@@ -32,6 +32,7 @@ class MainContainer extends React.Component {
     this.handleError = this.handleError.bind(this)
     this.toggleAccordion = this.toggleAccordion.bind(this)
     this.fetchCookToday = this.fetchCookToday.bind(this)
+    this.addCookingToday = this.addCookingToday.bind(this)
   }
 
   getChildContext() {
@@ -48,17 +49,20 @@ class MainContainer extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchDisplay(this.props.location.pathname)
-    this.fetchFridge().then(() => {
+    Promise.all([
+      this.fetchDisplay(),
+      this.fetchFridge(),
+      this.fetchCookToday()
+    ]).then(() => {
       if (this.state.fridge.length > 0) {
         this.fetchRecipes().then(() => {
-          this.fetchCookToday().then(() => {
-            this.setState({ ready: true })
-          })
+          this.setState({ ready: true })
         })
       } else {
         this.setState({ ready: true })
       }
+    }).catch((err) => {
+      console.error(err)   // TODO: Display error on failure in fetching initial data
     })
   }
 
@@ -83,7 +87,8 @@ class MainContainer extends React.Component {
     }
   }
 
-  fetchDisplay(pathname) {
+  fetchDisplay() {
+    const pathname = this.props.location.pathname
     if (pathname === '/') {
       this.setState({ display: 'index' })
     } else if (pathname === '/dash') {
@@ -136,18 +141,16 @@ class MainContainer extends React.Component {
   }
 
   addCookingToday(recipe) {
-  if (this.state.cookingToday.find((item) => {return item.id === recipe.id}) !== undefined) {
+    if (!(_.find(this.state.cookingToday, item => item.id === recipe.id))) {
       addCookToday(recipe)
         .then(() => {
-          var newCook = this.state.cookingToday.push(recipe)
-          console.log(newCook)
-          this.setState({ cookingToday: newCook})
-          this.fetchCookToday()
+          this.setState({ cookingToday: this.state.cookingToday.concat(recipe) })
         })
         .catch((err) => {
           console.log(err)
-        })}
+        })
     }
+  }
 
   updateFridge(action, ingredient) {
     const newFridge = this.state.fridge.slice()
