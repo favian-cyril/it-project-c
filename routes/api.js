@@ -74,13 +74,7 @@ router.get('/fridge/get', function (req, res, next) {
 
 router.get('/user/data', function (req, res, next) {
   if (req.session.user) {
-    const userData = {
-      name: req.session.user.name,
-      id: req.session.user.id,
-      facebook: req.session.user.facebook,
-      google: req.session.user.google
-    }
-    res.json({ user: userData })
+    res.json({ user: req.session.user })
   } else {
     res.status(404).end()
   }
@@ -89,10 +83,10 @@ router.get('/user/data', function (req, res, next) {
 router.post('/cooktoday/add', function(req, res, next) {
   cooktoday.addCookToday(req, function(err) {
     if (!err) {
-      console.log(`Added ${req.body.item} to Cooking Today`)
+      console.log(`Added ${req.body.item} to Cooking Today!`)
       res.status(200).end()
     } else {
-      console.log('Failed to add')
+      console.log('Failed to save to database.')
       next(err)
     }
   })
@@ -104,7 +98,7 @@ router.get('/cooktoday/get', function(req, res, next) {
       console.log('CookingToday fetched from database!')
       res.json(cooktoday)
     } else {
-      console.log('Failed to fetch')
+      console.log('Failed to fetch from database.')
       next(err)
     }
   })

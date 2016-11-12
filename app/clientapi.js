@@ -39,7 +39,7 @@ function fetchUser() {
   
 function addCookToday(recipe) {
   const url = `${baseUrl}cooktoday/add`
-  const form = { item: JSON.stringify(recipe)}
+  const form = { item: recipe }
   return post(url, form)
 }
 
