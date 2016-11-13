@@ -68,6 +68,10 @@ div.card-block.recipe-card {
   height: 100%;
 }
 
+.media-right a.btn-block, .media-right a.btn-block:hover, .media-right a.btn-block:active {
+  color: white;
+}
+
 /* RECIPE SUGGESTION */
 small.missing-str {
   line-height: 1 !important;
@@ -267,7 +271,7 @@ div.panel.show {
 }
 
 div.panel ul li.list-group-item {
-  padding: 5px 10px 0px 30px;
+  text-transform: capitalize;
 }
 
 /* TOOLTIP (INGREDIENTS) */
