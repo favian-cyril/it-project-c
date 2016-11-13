@@ -73,7 +73,7 @@ router.get('/fridge/get', function (req, res, next) {
 })
 
 router.post('/cooktoday/add', function(req, res, next) {
-  cooktoday.addCookToday(req, function(err) {
+  cooktoday.addCookToday(req, function (err) {
     if (!err) {
       if (req.body.item > 0) {
         console.log(`Added ${req.body.item.title} to Cooking Today`)
@@ -81,6 +81,8 @@ router.post('/cooktoday/add', function(req, res, next) {
       res.status(200).end()
     } else {
       console.log('Failed to add')
+    }
+  })
 })
 
 router.get('/user/data', function (req, res, next) {
