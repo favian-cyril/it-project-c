@@ -30,6 +30,12 @@ userSchema.methods.addCookToday = function (recipe, cb) {
   this.constructor.update(query, update, cb)
 }
 
+userSchema.methods.clearCookToday = function(cb) {
+  const query = {id: this.id}
+  const update = { '$set': { 'cookingToday': []}}
+  this.constructor.update(query, update, cb)
+}
+
 var User = mongoose.model('User', userSchema)
 
 module.exports = User

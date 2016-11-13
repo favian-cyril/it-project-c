@@ -2,7 +2,7 @@ import React from 'react'
 import _ from 'lodash'
 import { browserHistory } from 'react-router'
 import Preloader from '../components/Preloader'
-import { getFridge, searchResults, fetchUser, addCookToday, getCookToday } from '../clientapi'
+import { getFridge, searchResults, fetchUser, addCookToday, getCookToday, clearCookToday } from '../clientapi'
 import { REDIRECT_INGR_THRESHOLD } from '../config/constants'
 import anims from '../utils/anims'
 
@@ -34,6 +34,7 @@ class MainContainer extends React.Component {
     this.toggleAccordion = this.toggleAccordion.bind(this)
     this.fetchCookToday = this.fetchCookToday.bind(this)
     this.addCookingToday = this.addCookingToday.bind(this)
+    this.clearCookToday = this.clearCookToday.bind(this)
   }
 
   getChildContext() {
@@ -217,6 +218,16 @@ class MainContainer extends React.Component {
     }
   }
 
+  clearCookToday() {
+    if (this.state.cookingToday.length > 0) {
+      clearCookToday().then(() => {
+        this.setState({ cookingToday : []})
+      }).catch((err) => {
+        console.log(err)
+      })
+    }
+  }
+
   render() {
     return (
       <div className="main-container">
@@ -232,7 +243,8 @@ class MainContainer extends React.Component {
               user: this.state.user,
               toggleAccordion: this.toggleAccordion,
               isExpanded: this.state.isExpanded,
-              addCookToday: this.addCookingToday
+              addCookToday: this.addCookingToday,
+              clearCookToday: this.clearCookToday
             })
             : <div className="absolute-center"><Preloader/></div>
         }

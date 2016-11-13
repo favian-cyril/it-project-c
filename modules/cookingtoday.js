@@ -31,7 +31,24 @@ function getCookToday (req, cb) {
   }
 }
 
+function clearCookToday (req, cb) {
+  if (req.session.user.id) {
+    req.session.user.cookingToday = []
+    cb(null)
+    User.findOne({ id: req.session.user.id }, function(err, user) {
+      user.clearCookToday(function(err) {
+        if (!err) {
+          cb(null)
+        } else {
+          cb(err)
+        }
+      })
+    })
+  }
+}
+
 module.exports = {
   addCookToday,
-  getCookToday
+  getCookToday,
+  clearCookToday
 }

@@ -96,7 +96,9 @@ router.get('/user/data', function (req, res, next) {
 router.post('/cooktoday/add', function(req, res, next) {
   cooktoday.addCookToday(req, function(err) {
     if (!err) {
-      console.log(`Added ${req.body.item} to Cooking Today!`)
+      if (req.body.item.length > 0) {
+        console.log(`Added ${req.body.item.title} to Cooking Today!`)
+      }
       res.status(200).end()
     } else {
       console.log('Failed to save to database.')
@@ -112,6 +114,18 @@ router.get('/cooktoday/get', function(req, res, next) {
       res.json(cooktoday)
     } else {
       console.log('Failed to fetch from database.')
+      next(err)
+    }
+  })
+})
+
+router.post('/cooktoday/clear', function(req, res, next) {
+  cooktoday.clearCookToday(req, function(err) {
+    if (!err) {
+      console.log('CookingToday cleared')
+      res.status(200).end()
+    } else {
+      console.log('CookingToday fail to clear')
       next(err)
     }
   })

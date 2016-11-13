@@ -43,6 +43,7 @@ const Dashboard = (props, context) => (
               cookingToday={context.cookingToday}
               toggleAccordion={props.toggleAccordion}
               isExpanded={props.isExpanded}
+              clearCookToday={props.clearCookToday}
             />
           </div>
         </div>
@@ -81,7 +82,8 @@ Dashboard.propTypes = {
   user: React.PropTypes.shape({
     id: React.PropTypes.string,
     name: React.PropTypes.string
-  }).isRequired
+  }).isRequired,
+  clearCookToday: React.PropTypes.func.isRequired
 }
 
 // Default props for cloned children
@@ -92,6 +94,7 @@ Dashboard.defaultProps = {
   retryRecipes: () => {},
   addCookToday: () => {},
   toggleAccordion: () => {},
+  clearCookToday: () => {},
   isLoading: false,
   isExpanded: {expand:false, id:0},
   user: {}

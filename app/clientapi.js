@@ -48,6 +48,12 @@ function getCookToday() {
   return get(url)
 }
 
+function clearCookToday() {
+  const url = `${baseUrl}cooktoday/clear`
+  const form = { foo: 'foo'}
+  return post(url, form)
+}
+
 function get(url, params) {
   const options = { params }
   return new Promise((resolve, reject) => {
@@ -71,5 +77,6 @@ module.exports = {
   getFridge,
   fetchUser,
   addCookToday,
-  getCookToday
+  getCookToday,
+  clearCookToday
 }

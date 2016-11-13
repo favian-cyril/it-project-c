@@ -24,7 +24,7 @@ const CookingTodayList = (props) => (
     </div>
     <div className="card-footer">
       <center>
-        <button type="button" className="btn btn-danger">Clear All Recipes</button>
+        <button type="button" className="btn btn-danger" onClick={props.clearCookToday}>Clear All Recipes</button>
         <button type="button" className="btn btn-success">+ Shopping List</button>
       </center>
     </div>
@@ -37,6 +37,7 @@ CookingTodayList.propTypes = {
     React.PropTypes.object
   ).isRequired,
   toggleAccordion: React.PropTypes.func.isRequired,
+  clearCookToday: React.PropTypes.func.isRequired,
   isExpanded: React.PropTypes.shape({
     expand: React.PropTypes.bool.isRequired,
     id: React.PropTypes.number.isRequired
