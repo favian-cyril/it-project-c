@@ -16,7 +16,7 @@ class MainContainer extends React.Component {
       cookingToday: [],
       display: null,
       isLoading: false,
-      isExpanded: {expand:true, id:0},
+      isExpanded: {expand:false, id:0},
       recipePage: 1,
       errorType: {
         fridge: '',

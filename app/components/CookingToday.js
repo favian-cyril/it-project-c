@@ -2,10 +2,9 @@ import React from 'react'
 import CookingTodayIngredient from './CookingTodayIngredient'
 
 const CookingToday = (props) => {
-  const missing = props.recipe.missedIngredients.map(item => item.name)
   const accordionClass = props.isExpanded.expand ? 'active' : ''
   const caretClass = props.isExpanded.expand ? 'fa-caret-down' : 'fa-caret-right'
-  const panelClass = !props.isExpanded.expand && props.id === props.isExpanded.id ? 'show' : ''
+  const panelClass = props.isExpanded.expand && props.id === props.isExpanded.id ? 'show' : ''
 
   return (
     <div>
