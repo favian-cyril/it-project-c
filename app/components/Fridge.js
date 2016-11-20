@@ -4,7 +4,10 @@ import IngredientContainer from '../containers/IngredientContainer'
 const Fridge = props => (
   <div className="card">
     <div className="card-block">
-      <h5 className="card-title">{props.title}</h5>
+      <h5 className="card-title">
+        <span className="bf bf-fridge"></span>
+        {props.title}
+      </h5>
     </div>
     <div className="list-wrapper">
       <ul className="media-list">
