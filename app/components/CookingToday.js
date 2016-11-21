@@ -7,6 +7,13 @@ const CookingToday = (props) => {
   const caretClass = active ? 'fa-caret-down' : 'fa-caret-right'
   const panelClass = active ? 'show' : ''
 
+  let results = props.recipe.missedIngredients.map((item, i) =>
+    <CookingTodayIngredient key={i} id={i} ingredient={item}/>
+  )
+  if (props.recipe.missedIngredients.length === 0) {
+    results = <CookingTodayIngredient key={0} id={0} ingredient={"No missing ingredients"}/>
+  }
+
   return (
     <div>
       <button className={`accordion ${accordionClass}`} onClick={() => {props.toggleAccordion(props.id)}} id={props.id}>
@@ -18,18 +25,9 @@ const CookingToday = (props) => {
           {props.recipe.title}
         </a>
       </button>
-        <div className={`panel ${panelClass}`} id={props.id}>
+      <div className={`panel ${panelClass}`} id={props.id}>
         <ul className="list-group">
-          {
-            props.recipe.missedIngredients.map((item, i) => (
-                <CookingTodayIngredient
-                  key={i}
-                  id={i}
-                  ingredient={item}
-                />
-              )
-            )
-          }
+          {results}
         </ul>
       </div>
     </div>
