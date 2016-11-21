@@ -232,12 +232,23 @@ class MainContainer extends React.Component {
   }
 
   cookingTodayUpdateFromFridge() {
-    var newCookToday = this.state.cookingToday.map(recipe => recipe.missedIngredients)
+    var temp = this.state.cookingToday.map(recipe => recipe.missedIngredients)
     var that = this
-    newCookToday.forEach(function(missed) {
+    var results = temp.map(function(missed) {
       return _.differenceBy(missed, that.state.fridge, 'id')
     })
-    console.log(newCookToday)
+    var newCookToday = this.state.cookingToday.map(function(ingredients, i) {
+      ingredients.missedIngredients = results[i]
+      return ingredients
+    })
+    clearCookToday().then(() => {
+      this.setState({ cookingToday : []})
+      newCookToday.forEach(function(recipe) {
+        that.addCookingToday(recipe)
+      })
+      this.fetchCookToday()
+    })
+
   }
 
   render() {
