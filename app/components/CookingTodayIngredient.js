@@ -5,6 +5,7 @@ const CookingTodayIngredient = (props) => (
 )
 
 CookingTodayIngredient.propTypes = {
+  id: React.PropTypes.number.isRequired,
   ingredient: React.PropTypes.shape({
     name: React.PropTypes.string.isRequired
   }).isRequired

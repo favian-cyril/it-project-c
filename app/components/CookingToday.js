@@ -11,7 +11,7 @@ const CookingToday = (props) => {
     <CookingTodayIngredient key={i} id={i} ingredient={item}/>
   )
   if (props.recipe.missedIngredients.length === 0) {
-    results = <CookingTodayIngredient key={0} id={0} ingredient={"No missing ingredients"}/>
+    results = <CookingTodayIngredient key={"0"} id={0} ingredient={{name: "No missing ingredients"}}/>
   }
 
   return (
