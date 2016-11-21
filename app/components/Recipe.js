@@ -37,7 +37,7 @@ const Recipe = (props) => {
           className="btn btn-block btn-success"
           onClick={function(){ props.addCookToday(props.recipe)}}
         >
-          <span className="bf bf-pan-add"></span>
+          <span className="bf bf-lg bf-pan-add"></span>
         </a>
       </div>
     </li>
