@@ -35,6 +35,7 @@ class MainContainer extends React.Component {
     this.fetchCookToday = this.fetchCookToday.bind(this)
     this.addCookingToday = this.addCookingToday.bind(this)
     this.clearCookToday = this.clearCookToday.bind(this)
+    this.cookingTodayUpdateFromFridge = this.cookingTodayUpdateFromFridge.bind(this)
   }
 
   getChildContext() {
@@ -88,7 +89,9 @@ class MainContainer extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.fridge.length !== this.state.fridge.length) {
-      this.fetchRecipes()
+      this.fetchRecipes().then(() => {
+        this.cookingTodayUpdateFromFridge()
+      })
     }
   }
 
@@ -226,6 +229,15 @@ class MainContainer extends React.Component {
         console.log(err)
       })
     }
+  }
+
+  cookingTodayUpdateFromFridge() {
+    var newCookToday = this.state.cookingToday.map(recipe => recipe.missedIngredients)
+    var that = this
+    newCookToday.forEach(function(missed) {
+      return _.differenceBy(missed, that.state.fridge, 'id')
+    })
+    console.log(newCookToday)
   }
 
   render() {

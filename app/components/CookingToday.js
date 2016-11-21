@@ -2,9 +2,10 @@ import React from 'react'
 import CookingTodayIngredient from './CookingTodayIngredient'
 
 const CookingToday = (props) => {
-  const accordionClass = props.isExpanded.expand ? 'active' : ''
-  const caretClass = props.isExpanded.expand ? 'fa-caret-down' : 'fa-caret-right'
-  const panelClass = props.isExpanded.expand && props.id === props.isExpanded.id ? 'show' : ''
+  var active = props.isExpanded.expand && props.id === props.isExpanded.id
+  const accordionClass = active ? 'active' : ''
+  const caretClass = active ? 'fa-caret-down' : 'fa-caret-right'
+  const panelClass = active ? 'show' : ''
 
   return (
     <div>
