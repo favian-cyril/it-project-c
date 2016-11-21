@@ -6,7 +6,8 @@ const Index = (props) => {
   const logoImage = (
     <img
       className="img-responsive index-logo
-      offset-xs-4 col-xs-4"
+      offset-md-3 col-md-6
+      offset-xs-2 col-xs-8"
       src={logoUrl}
       alt="bitfridge-logo"
       title="Hello!"
@@ -23,7 +24,7 @@ const Index = (props) => {
           {logoImage}
         </div>
         <div className="row">
-          <div className="offset-xs-3 col-xs-6">
+          <div className="offset-xs-1 col-xs-10 offset-md-2 col-md-8">
             <SearchContainer
               updateFridge={props.updateFridge}
               isInFridge={props.isInFridge}

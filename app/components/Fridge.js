@@ -2,29 +2,28 @@ import React from 'react'
 import IngredientContainer from '../containers/IngredientContainer'
 
 const Fridge = props => (
-  <div className="card">
-    <div className="card-block">
-      <h5 className="card-title">
-        <span className="bf bf-fridge"></span>
-        {props.title}
-      </h5>
-    </div>
-    <div className="list-wrapper">
-      <ul className="media-list">
-        {
-          props.contents.map((item, i) => (
-            <IngredientContainer
-              key={i}
-              idName={`ingr_${i}`}
-              parent={'fridge'}
-              ingredient={item}
-              updateFridge={props.updateFridge}
-              isInFridge={props.isInFridge}
-            />
+  <div className="container fridge">
+    <div className="card">
+      <div className="card-block">
+        <h5 className="card-title">{props.title}</h5>
+      </div>
+      <div className="list-wrapper">
+        <ul className="media-list">
+          {
+            props.contents.map((item, i) => (
+              <IngredientContainer
+                key={i}
+                idName={`ingr_${i}`}
+                parent={'fridge'}
+                ingredient={item}
+                updateFridge={props.updateFridge}
+                isInFridge={props.isInFridge}
+              />
+              )
             )
-          )
-        }
-      </ul>
+          }
+        </ul>
+      </div>
     </div>
   </div>
 )
@@ -39,8 +38,7 @@ Fridge.propTypes = {
 }
 
 Fridge.defaultProps = {
-  title: 'My Fridge',
-  contents: []
+  title: 'My Fridge'
 }
 
 export default Fridge

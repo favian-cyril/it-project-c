@@ -32,28 +32,6 @@ function getFridge() {
   return get(url)
 }
 
-function fetchUser() {
-  const url = `${baseUrl}user/data`
-  return get(url)
-}
-
-function addCookToday(recipe) {
-  const url = `${baseUrl}cooktoday/add`
-  const form = { item: recipe }
-  return post(url, form)
-}
-
-function getCookToday() {
-  const url = `${baseUrl}cooktoday/get`
-  return get(url)
-}
-
-function clearCookToday() {
-  const url = `${baseUrl}cooktoday/clear`
-  const form = { foo: 'foo'}
-  return post(url, form)
-}
-
 function get(url, params) {
   const options = { params }
   return new Promise((resolve, reject) => {
@@ -74,9 +52,5 @@ module.exports = {
   searchResults,
   addIngredient,
   delIngredient,
-  getFridge,
-  fetchUser,
-  addCookToday,
-  getCookToday,
-  clearCookToday
+  getFridge
 }
