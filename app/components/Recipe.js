@@ -25,19 +25,19 @@ const Recipe = (props) => {
         <h5 className="media-heading">{props.recipe.title}</h5>
         <small className="missing-str">Missing: {missingStr}</small>
       </div>
-      <div className="media-right media-middle">
+      <div className="media-right media-middle btn-group-vertical">
         <a
-          className="btn btn-block btn-info"
+          className="btn btn-block btn-lg btn-info"
           href={props.recipe.sourceUrl}
           target="_blank" rel="noopener noreferrer"
         >
-          View Recipe
+          <span className="fa fa-arrow-right"></span>
         </a>
         <a
           className="btn btn-block btn-success"
           onClick={function(){ props.addCookToday(props.recipe)}}
         >
-          + Cooking Today
+          <span className="bf bf-pan-add"></span>
         </a>
       </div>
     </li>

@@ -14,7 +14,7 @@ const Dashboard = (props, context) => (
             <img className="img-responsive" src="../images/logo-1x.png" alt="logo-nav"/>
           </div>
         </div>
-        <div className="col-xs-6 offset-xs-1 search-bar-fix">
+        <div className="col-xs-4 offset-xs-2 search-bar-fix">
           <div className="container">
             <SearchContainer
               updateFridge={props.updateFridge}

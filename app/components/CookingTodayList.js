@@ -6,7 +6,10 @@ const CookingTodayList = (props) => (
   // Map all props.cookingToday() to create multiple CookingToday
   <div className="card">
     <div className="card-block">
-      <h5 className="card-title">Cooking Today</h5>
+      <h5 className="card-title">
+        <span className="bf bf-pan"></span>
+        {props.title}
+      </h5>
     </div>
     <div className="list-wrapper">
     {
@@ -24,8 +27,21 @@ const CookingTodayList = (props) => (
     </div>
     <div className="card-footer">
       <center>
-        <button type="button" className="btn btn-danger" onClick={props.clearCookToday}>Clear All Recipes</button>
-        <button type="button" className="btn btn-success">+ Shopping List</button>
+        <div className="btn-group">
+          <button
+            type="button"
+            className="btn btn-danger"
+            onClick={props.clearCookToday}
+          >
+            Clear All Recipes
+          </button>
+          <button
+            type="button"
+            className="btn btn-success"
+          >
+            <span className="bf bf-shopping-basket-add"></span>
+          </button>
+        </div>
       </center>
     </div>
   </div>

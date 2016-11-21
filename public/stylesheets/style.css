@@ -49,6 +49,10 @@ div.card-block {
   background-color: #e7e7e7;
 }
 
+h5.card-title span.bf {
+  margin-right: 10px;
+}
+
 .list-wrapper {
   height: 27vh;
   overflow-y: auto;
@@ -66,6 +70,12 @@ div.card-block.recipe-card {
 
 .recipe-list-wrapper > ul {
   height: 100%;
+}
+
+.btn-group-vertical > [class*='btn-'] {
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
 }
 
 .media-right a.btn-block, .media-right a.btn-block:hover, .media-right a.btn-block:active {
@@ -253,7 +263,11 @@ button.accordion.active, button.accordion:hover {
 }
 
 button.accordion a {
-  float: right;
+  padding-left: 10px;
+}
+
+button.accordion a:hover, button.accordion a:visited, button.accordion a:link, button.accordion a:active {
+  text-decoration: none !important;
 }
 
 div.panel {
